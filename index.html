@@ -49,6 +49,7 @@
     <div class="about-column">
       <h2>About me</h2>
 
+      <div class="about-layout">
       <figure class="portrait">
         <img src="Images/Dimuthu.jpg" alt="Dimuthu Attanayake">
       </figure>
@@ -90,8 +91,16 @@
           As a business advisor for an Australian government-led programme, I have strategized value chain interventions and, as a tech researcher, I have worked on developing AI tools for fact-checking. I hold a BSc (Hons) in Economics and Finance from the University of London.
         </p>
       </div>
+      </div>
     </div>
   </section>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+document.querySelectorAll('.portrait').forEach(el => observer.observe(el));
+</script>
 
   <!-- REPORTING -->
   <section id="reporting" class="work">
