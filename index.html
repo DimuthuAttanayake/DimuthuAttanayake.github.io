@@ -150,19 +150,32 @@
 
       <a class="viz-card" href="cheese-story/" target="_blank">
         <div class="viz-card-bg viz-gradient-3">
-          <!-- Animated cheese wedge -->
+          <!-- Cute animated cheese -->
           <svg class="viz-svg viz-svg-cheese" viewBox="0 0 300 200" aria-hidden="true">
-            <!-- Round cheese wheel -->
-            <ellipse cx="150" cy="105" rx="55" ry="55" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" />
-            <!-- Cheese holes on wheel -->
-            <circle cx="130" cy="90" r="6" fill="rgba(255,255,255,0.08)" />
-            <circle cx="165" cy="115" r="8" fill="rgba(255,255,255,0.08)" />
-            <circle cx="145" cy="130" r="5" fill="rgba(255,255,255,0.08)" />
-            <!-- Triangular wedge that slides out -->
+            <!-- Round cheese wheel (stays put) -->
+            <g class="cheese-wheel">
+              <ellipse cx="120" cy="115" rx="50" ry="50" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" />
+              <!-- Holes on wheel -->
+              <circle cx="100" cy="100" r="7" fill="rgba(255,255,255,0.07)" />
+              <circle cx="130" cy="130" r="9" fill="rgba(255,255,255,0.07)" />
+              <circle cx="108" cy="135" r="5" fill="rgba(255,255,255,0.07)" />
+              <!-- Sad eye on wheel -->
+              <circle cx="115" cy="105" r="3" fill="rgba(255,255,255,0.4)" />
+              <circle cx="115" cy="106" r="1.5" fill="rgba(255,255,255,0.7)" />
+              <!-- Sad mouth -->
+              <path d="M108,118 Q115,114 122,118" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none" stroke-linecap="round" />
+            </g>
+            <!-- Triangular wedge that slides away (cute!) -->
             <g class="cheese-wedge">
-              <polygon points="150,55 205,105 150,105" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linejoin="round" />
-              <!-- Hole on wedge -->
-              <circle cx="172" cy="90" r="4" fill="rgba(255,255,255,0.1)" />
+              <polygon points="135,70 195,115 135,115" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.45)" stroke-width="1.5" stroke-linejoin="round" />
+              <!-- Holes on wedge -->
+              <circle cx="155" cy="100" r="5" fill="rgba(255,255,255,0.1)" />
+              <circle cx="165" cy="108" r="3" fill="rgba(255,255,255,0.08)" />
+              <!-- Happy eye -->
+              <circle cx="158" cy="90" r="2.5" fill="rgba(255,255,255,0.5)" />
+              <circle cx="158" cy="89.5" r="1.2" fill="rgba(255,255,255,0.8)" />
+              <!-- Happy smile -->
+              <path d="M152,96 Q158,100 164,96" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" fill="none" stroke-linecap="round" />
             </g>
           </svg>
           <div class="viz-card-content">
