@@ -1,56 +1,54 @@
-# America's cheese divide: Walmart vs Whole Foods
+# When sharks become intentional bycatch
 
 This is a project for [Data Studio](https://journalism.columbia.edu/ms-data-journalism), Spring 2026.
 
-This project analyses how cheese prices differ between Walmart and Whole Foods, and what that price gap reveals about fat content, consumer demographics, and American food culture. The price and nutritional data comes from [GroceryDB](https://github.com/Barabasi-Lab/GroceryDB), a research database developed by the Barabasi Lab.
+This project analyses the dataset on sharks bycatch from [Worm, Boris et al. (2024)](https://datadryad.org/dataset/doi:10.25349/D9JK6N#readme) to understand what happens to sharks caught "unintentionally" by fishers, and whether their habitats have an influnce on the outcome. 
+
+**Project page:** [sharks-as-bycatch](https://dimuthuattanayake.github.io/sharks-as-bycatch/)
 
 ## Methodology
 
+Find in [Analysis](https://github.com/DimuthuAttanayake/sharks-as-bycatch/blob/main/Analysis.ipynb)
+
 ### Data collection and cleaning
 
-* Downloaded the GroceryDB dataset from the [Barabasi Lab GitHub repository](https://github.com/Barabasi-Lab/GroceryDB)
-* Filtered the dataset to cheese products only (1,621 products across all stores)
-* Categorised products into 16 cheese types (Cheddar, Mozzarella, Parmesan, Gouda, etc.) by keyword matching on product names
-* Removed uncategorised products and NAs
-* Filtered to Walmart and Whole Foods only (880 products)
+* Downloaded thedataset from the [Worm, Boris et al. (2024)](https://datadryad.org/dataset/doi:10.25349/D9JK6N#readme)
+* Duplicate names for shark species were checked and removed (scalloped hammerhead variations and shortfin mako variations were all made into one label so that there will be one naming standard for these species)
+* Dropped rays because I wanted to focus only on sharks
+* Names ending in "nei" (not elsewhere included) lump multiple species together, so grouped them into one category and renamed as "other" for clarity.
+* Renamed the fates of sharks after being caught by fishers into into three meaningful categories and removed 'discard unknown' because the fate of this category is unknown
+* Drop rows with missing values or zero sample size before analysis
+* Common name was capitalized
+
 
 ### Analysis
 
-* Compared **median** prices between Walmart and Whole Foods for each cheese type, calculating dollar and percentage gaps
-* Calculated the overall median price difference across all cheese types ($2.53)
-* For the fat-per-dollar analysis, filtered out outlier fat values (keeping only 0-50g per 100g) to remove data entry errors
-* Computed fat-per-dollar ratios (Total Fat / price) for each product, then took the **median** fat per dollar for each cheese type
-* Cross-referenced the price divide with the fat-per-dollar analysis to identify patterns
+* Because different species had different sample sizes,computed the sample-size-weighted average of 'fate_proportion' within each of the three categories for each species,. 
+* Because the three categories of fate comes from different studies, normalized them to 100 percent.
+* For chart 2, group species by habitat types and averaged across the categories
+
 
 ### Visualisations
 
-* Created a dumbbell chart showing the price gap between Walmart and Whole Foods for each cheese type in Datawrapper
-* Created a bar chart showing median fat per dollar by cheese type in Datawrapper
-* Embedded both charts into a story page built with the [jsoma fancy-header template](https://jsoma.github.io/page-templates/fancy-header/index.html)
+* Chart 1:Created a stacked bar chart showing the percentage of shark bycatch kept onboard without releasing back to the enviorenment
+* Chart 2:Created a bar chart showing fate of sharks caught as bycatch from different habitats
 
-### Notebooks
-
-| File | Description |
-|------|-------------|
-| `Cheese_comparison.ipynb` | Filters GroceryDB to cheese, categorises by type, compares median prices between Walmart and Whole Foods, calculates price gaps |
-| `cheese_priceV_fat.ipynb` | Calculates fat-per-dollar ratios for each cheese type, filters outliers, computes median fat per dollar |
-| `GroceryDB_foods.csv` | Source dataset from GroceryDB |
 
 ## New Skills
 
-* Using GroceryDB, a research-grade grocery dataset, for the first time to conduct cross-retailer price analysis
-* Building interactive Datawrapper charts (dumbbell/range plot and bar chart) and embedding them into a custom story page
-* Combining quantitative price analysis with demographic research to build a data-driven narrative
-* Using the jsoma fancy-header story template to present the analysis as a visual story with a full-bleed hero image
+* Analysing biodiversity datasets. It's way more complex than I imagined
+* Using coding for analysis: because it's so complex I used for Claude for some of it and I have a long way to go before doing this kind of analysis antirely on my own
+* Building my first stacked bar chart in Datawrapper
+  
 
 ## What more would I like to do?
 
-* Normalise prices per unit weight (e.g., per 100g) rather than per package to make comparisons more precise
-* Add a third retailer (e.g., Target or Aldi) to see where they fall on the price spectrum
-* Build an interactive map showing Walmart vs Whole Foods store locations overlaid with income data by census tract
-* Analyse protein-per-dollar alongside fat-per-dollar to give a fuller nutritional picture
-* Investigate whether organic vs conventional labelling explains the price gap within the same cheese type
+* Learn a better and more accurate methodolody for analysis
+* Learn how to combine different datasets together, especially when the data collection methodologies are different. 
+* I wanted to use the data set of post release mortality to understand what happens to each of the species once gthey are released by I do not have the technical knowledge needed for that kind of modelling
+  
 
 ## Contact
 
 Dimuthu Attanayake, [dca2140@columbia.edu](mailto:dca2140@columbia.edu)
+
