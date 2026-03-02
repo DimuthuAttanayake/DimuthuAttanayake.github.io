@@ -452,6 +452,10 @@ main {
   background-image: linear-gradient(135deg, #f7a600, #e74c3c, #8e44ad);
 }
 
+.viz-gradient-4 {
+  background-image: linear-gradient(135deg, #1b4965, #2c7da0, #61a5c2);
+}
+
 .viz-tag {
   display: inline-block;
   align-self: flex-start;

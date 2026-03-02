@@ -217,6 +217,27 @@ document.querySelectorAll('.portrait').forEach(el => observer.observe(el));
         </div>
       </a>
 
+      <a class="viz-card" href="sharks-bycatch/" target="_blank">
+        <div class="viz-card-bg viz-gradient-4">
+          <!-- Animated shark fin -->
+          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+            <path class="sankey-flow s1" d="M0,140 C50,135 100,130 150,125 C200,120 250,115 300,110" />
+            <path class="sankey-flow s2" d="M0,160 C50,155 100,150 150,145 C200,140 250,135 300,130" />
+            <path class="sankey-flow s3" d="M0,180 C50,175 100,170 150,165 C200,160 250,155 300,150" />
+            <g class="shark-fin" opacity="0.7">
+              <path d="M140,100 L150,60 L165,100 Z" fill="rgba(255,255,255,0.5)" />
+              <animateTransform attributeName="transform" type="translate" values="-60,0;60,0;-60,0" dur="8s" repeatCount="indefinite" />
+            </g>
+          </svg>
+          <div class="viz-card-content">
+            <span class="viz-tag">Data Story</span>
+            <h3>When Sharks Become Intentional Bycatch</h3>
+            <p class="viz-desc">Commercially viable species living in the high seas are the least likely to be released back</p>
+            <span class="viz-cta">View project &rarr;</span>
+          </div>
+        </div>
+      </a>
+
       <a class="viz-card" href="https://dimuthuattanayake.github.io/Dengue/" target="_blank">
         <div class="viz-card-bg viz-gradient-2">
           <!-- Animated mosquito -->
