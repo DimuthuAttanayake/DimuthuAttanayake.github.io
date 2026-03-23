@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>How the countries building AI run on dirty power</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-size: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            text-rendering: optimizeLegibility;
+        }
+
+        .content {
+            max-width: 640px;
+            margin: auto;
+        }
+
+        .header {
+            padding: 3em 0;
+        }
+
+        a {
+            color: #a0171e;
+            text-decoration: underline;
+            text-decoration-color: rgba(232, 116, 12, 0.3);
+            text-underline-offset: 2px;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #c71e1d;
+            text-decoration-color: #c71e1d;
+        }
+
+        .footer {
+            background: #f4f4f4;
+            text-align: center;
+            font-size: 0.8em;
+            margin-top: 4em;
+            padding: 4em 0;
+        }
+
+        figure {
+            margin: 0;
+            padding-bottom: 1.2em;
+        }
+
+        figcaption {
+            font-size: 0.6em;
+            color: #777;
+            text-align: left;
+            margin-top: 0.3em;
+            
+        }
+
+        h1 {
+            font-weight: bold;
+            font-size: 3em;
+            line-height: 1.1;
+        }
+
+        .subhead {
+        }
+
+        iframe,
+        img,
+        video {
+            max-width: 100%;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0;
+            padding-bottom: 1.2em;
+        }
+
+        ul {
+            margin: 0;
+            padding-bottom: 1em;
+            line-height: 1.6;
+        }
+
+        h2 {
+            font-weight: bold;
+            font-size: 1.5em;
+            line-height: 1.2;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                font-size: 18px;
+            }
+
+            .content {
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
+        }
+
+        .with-image-bg {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 2em;
+
+            min-height: 70svh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            text-shadow: 0px 0px 30px black,
+                0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .with-image-bg {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.55)),
+                url('Images/pexels-valeriiamiller-5135160.jpg');
+            background-color: #1a1a2e;
+        }
+
+        .photo-credit {
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            font-size: 0.65em;
+            opacity: 0.6;
+            padding-bottom: 0;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        iframe {
+            margin-bottom: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header with-image-bg">
+        <div class="content">
+            <h1>How the countries building AI run on dirty power</h1>
+            <p class="subhead">While AI promises reshape the future, the development of these models use up large volumes of fossil fuels, challenging the planetary health</p>
+        </div>
+        <p class="photo-credit">Photo by Valeriia Miller/Pexels</p>
+    </div>
+    <div class="content">
+        <div class="byline">
+            <p>By <span style="color: #c71e1d;">Dimuthu Attanayake</span></p>
+        </div>
+
+        <p>From the financial analysts in New York City to the students in rural schools in the global south, these days share a common excitement for AI models. From OpenAI’s ChatGPT, to Google’s Gemini and Anthropic’s Claude to xAI’s Grok, Large Language Models (LLMs) are crunching numbers and doing eighth grade homework, or even advising on how to deal with a toxic friend. By 2023, ChatGPT was called the <a href=”https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/”>fastest growing consumer app in history</a>. Claude is becoming increasingly popular for coding, and <a href=”https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/”>AlphaFold2</a> model developed to predict protein structures by Google’s DeepMind, won the Nobel Prize in Chemistry in 2024.</p>
+
+        <p>But, AI models use vast amounts of electricity to train. This analysis matches data from <a href=”https://epoch.ai/data/all_ai_models.csv”>Epoch AI</a> and <a href=”https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv”>Our World in Data</a> to estimate the proportion of fossil fuel usage by the countries at the forefront of the AI race. Between 2005 to 2024, the top eight countries consuming energy to train AI, powered at least half of their grid by fossil fuel sources, adding to the global carbon emissions.</p>
+
+        <p>United States topped the list of countries in terms of using energy to train AI, with the total coming up an estimated 307 GWh, using up more energy than the next 25 countries combined, on a grid powered by 59 percent fossil fuel. This is equal to the amount of energy that could power roughly <a href="https://www.nyenergyratings.com/blog/how-many-kwh-does-an-average-nyc-apartment-use/">51,000 one bedroom apartments</a> in NYC for an entire year.</p>
+
+        <p>Fossil fuel sources, coal, oil and natural gas are considered ‘dirty’ sources of energy, compared to low carbon sources such as renewables and atomic energy, due to their contribution to global carbon emissions.</p>
+
+        <p>Training a model to become good at a task, for example to predict protein structures, is a time consuming process that takes weeks, or months. This would happen at AI data centers, sort of massive warehouses with rows after rows of servers holding specialised chips, that would feed on energy to operate.</p>
+
+        <p>There is a growing concern on the use of dirty energy to train AI models and the environmental impact of AI data centers, with the <a href=”https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai”>International Energy Agency</a> projecting consumption to increase by approximately 15 percent annually.</p>
+
+        <p>Last December, over 200 environmental groups, including Greenpeace, Friends of the Earth and Food & Water Watch <a href=”https://www.npr.org/2025/12/09/nx-s1-5637532/environmental-groups-call-for-a-moratorium-on-data-center-construction”>urged the members of congress</a> to impose a moratorium on building new data centers in the US.</p>
+
+        <p>OpenAI founder, Sam Altman, recently <a href=”https://techcrunch.com/2026/02/21/sam-altman-would-like-remind-you-that-humans-use-a-lot-of-energy-too/”>defended the energy usage</a> by data centers saying that: “people talk about how much energy it takes to train an AI model – but it also takes a lot of energy to train a human.” But he also <a href="https://www.theguardian.com/technology/2026/feb/23/sam-altman-openai-energy-use-datacenters">admitted the need</a> to generate more energy via cleaner sources such as nuclear, wind or energy.</p>
+
+    </div>
+
+    <div class="footer">
+        <div class="content">
+            <p>Data analysis by Dimuthu Attanayake. Data from <a href="https://epoch.ai/data/all_ai_models.csv">Epoch AI Notable AI Models</a> and <a href="https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv">Our World in Data Energy</a>.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
