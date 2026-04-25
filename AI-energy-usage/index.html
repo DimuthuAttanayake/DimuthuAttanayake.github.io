@@ -8,7 +8,8 @@
     <style>
         body {
             margin:auto;
-            padding:50px 10px;
+            padding:40px 24px;
+            max-width:1180px;
             font-family: 'Open Sans', sans-serif;
         }
 
@@ -35,23 +36,23 @@
         }
 
         .header {
-            padding-top:20px;
-            padding-bottom:20px;
+            padding-top:10px;
+            padding-bottom:10px;
         }
 
-        .story-body, .header, .chart-section, .footer {
+        .story-body, .header, .footer {
             margin:auto;
-            max-width: 700px;
+            max-width: 720px;
         }
 
         .footer {
-            padding-top:20px;
-            padding-bottom:20px;
+            padding-top:30px;
+            padding-bottom:10px;
         }
 
         .chart-section.wide{
             width:100%;
-            max-width:1200px;
+            max-width:1120px;
         }
 
         .chart-section.wide p.chart-title {
@@ -80,27 +81,29 @@
         }
 
         h1.headline {
-            font-size: 4rem;
+            font-size: 3rem;
             line-height: 1.1;
-            margin-bottom: 0.25rem;
-            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
             font-weight: 800;
             color: #9d006f;
+            letter-spacing: -0.01em;
         }
 
         h2.subhead {
-            font-size: 1.4rem;
-            line-height: 2rem;
+            font-size: 1.25rem;
+            line-height: 1.5;
             margin-bottom:0;
-            margin-top: 15px;
+            margin-top: 12px;
             font-weight: 400;
+            color:#333;
         }
 
         p.body-text {
-            font-size: 1.1rem;
-            line-height: 1.4;
+            font-size: 1.075rem;
+            line-height: 1.6;
             margin-top:0;
-            margin-bottom:15px;
+            margin-bottom:18px;
         }
 
         h3.section-head {
@@ -136,8 +139,10 @@
 
         .chart-section {
             width:100%;
-            max-width:1200px;
-            padding:5px 0px;
+            max-width:720px;
+            margin: -10px auto 0;
+            padding:0;
+            overflow: visible;
         }
 
         .story-body .chart-section {
@@ -146,8 +151,25 @@
 
         .chart-row {
             display:flex;
-            justify-content: space-between;
-            margin-top:5px;
+            justify-content: flex-start;
+            margin-top:0;
+        }
+
+        .chart-row .chart {
+            padding-right:0;
+        }
+
+        /* left-align the ai2html artboard with the text column,
+           and scale it up slightly so the bars feel less squished */
+        .chart-section #g-ai-dirt-grid-box,
+        .chart-section #g-ai-dirt-grid-box .g-artboard {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        .chart-section #g-ai-dirt-grid-box {
+            transform: translateX(-19px) scale(1.08);
+            transform-origin: top left;
+            margin-bottom: 50px;
         }
 
         p.chart-title {
@@ -172,9 +194,7 @@
 
         .chart-row .chart {
             width:100%;
-            padding-right:15px;
             min-width:calc(25% - 15px);
-
         }
 
 
@@ -251,8 +271,8 @@
     </div>
 
     <div class="story-body">
-      <p class="body-text serif">From the financial analysts in New York City to the students in rural schools in the global south, these days share a common excitement for AI models. From OpenAI's ChatGPT, to Google's Gemini and Anthropic's Claude to xAI's Grok, Large Language Models (LLMs) are crunching numbers and doing eighth grade homework, or even advising on how to deal with a toxic friend. By 2023, ChatGPT was called the <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">fastest growing consumer app in history</a>. Claude is becoming increasingly popular for coding, and <a href="https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/">AlphaFold2</a> model developed to predict protein structures by Google's DeepMind, won the Nobel Prize in Chemistry in 2024.</p>
-      <p class="body-text serif">But, AI models use vast amounts of electricity to train. This analysis matches data from <a href="https://epoch.ai/data/all_ai_models.csv">Epoch AI</a> and <a href="https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv">Our World in Data</a> to estimate the proportion of fossil fuel usage by the countries at the forefront of the AI race. Between 2005 to 2024, six out of the top eight countries consuming energy to train AI, powered at least half of their grid by fossil fuel sources, adding to the global carbon emissions.</p>
+      <p class="body-text serif">Artificial intelligence has moved from research labs into daily life at extraordinary speed. Wall Street analysts use it to crunch numbers, students lean on it for homework, and researchers rely on it to map the structure of proteins. ChatGPT became the <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">fastest growing consumer app in history</a> within months of its launch, and in 2024 a Google DeepMind model <a href="https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/">won the Nobel Prize in Chemistry</a>. But this boom in AI has a hidden cost.</p>
+      <p class="body-text serif">AI models use vast amounts of electricity to train. This analysis matches data from <a href="https://epoch.ai/data/all_ai_models.csv">Epoch AI</a> and <a href="https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv">Our World in Data</a> to estimate the proportion of fossil fuel usage by the countries at the forefront of the AI race. Between 2005 to 2024, six out of the top eight countries consuming energy to train AI, powered at least half of their grid by fossil fuel sources, adding to the global carbon emissions.</p>
     </div>
 
     <div class="chart-section">
