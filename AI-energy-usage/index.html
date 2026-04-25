@@ -8,7 +8,7 @@
     <style>
         body {
             margin:auto;
-            padding:40px 24px;
+            padding:8px 24px 40px;
             max-width:1180px;
             font-family: 'Open Sans', sans-serif;
         }
@@ -245,6 +245,12 @@
                 padding:0;
             }
 
+            /* nudge the mobile artboard left so it aligns with the text column */
+            .chart-section #g-ai-dirt-grid-box {
+                transform: translateX(-12px) scale(1.04);
+                transform-origin: top left;
+            }
+
             .photo-section {
                 display:block;
             }
@@ -271,7 +277,7 @@
     </div>
 
     <div class="story-body">
-      <p class="body-text serif">Artificial intelligence has moved from research labs into daily life at extraordinary speed. Wall Street analysts use it to crunch numbers, students lean on it for homework, and researchers rely on it to map the structure of proteins. ChatGPT became the <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">fastest growing consumer app in history</a> within months of its launch, and in 2024 a Google DeepMind model <a href="https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/">won the Nobel Prize in Chemistry</a>. But this boom in AI has a hidden cost.</p>
+      <p class="body-text serif">Artificial intelligence has moved from research labs into daily life at extraordinary speed. Wall Street analysts use it to crunch numbers, students lean on it for homework, and researchers rely on it to map the structure of proteins. ChatGPT became the <a href="https://www.reuters.com/technology/chatgpt-sets-record-fastest-growing-user-base-analyst-note-2023-02-01/">fastest growing consumer app in history</a> within months of its launch, and in 2024 a Google DeepMind model <a href="https://www.nobelprize.org/prizes/chemistry/2024/hassabis/facts/">won the Nobel Prize in Chemistry</a>. But, this boom in AI has a hidden cost.</p>
       <p class="body-text serif">AI models use vast amounts of electricity to train. This analysis matches data from <a href="https://epoch.ai/data/all_ai_models.csv">Epoch AI</a> and <a href="https://raw.githubusercontent.com/owid/energy-data/master/owid-energy-data.csv">Our World in Data</a> to estimate the proportion of fossil fuel usage by the countries at the forefront of the AI race. Between 2005 to 2024, six out of the top eight countries consuming energy to train AI, powered at least half of their grid by fossil fuel sources, adding to the global carbon emissions.</p>
     </div>
 
