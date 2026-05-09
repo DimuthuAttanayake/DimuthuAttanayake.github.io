@@ -138,6 +138,39 @@ document.querySelectorAll('.portrait').forEach(el => observer.observe(el));
     <h2>Data Visualization</h2>
 
     <div class="grid">
+      <a class="viz-card" href="America-forest-cover/state-rankings.html" target="_blank">
+        <div class="viz-card-bg viz-gradient-forest">
+          <!-- Animated lollipop bars echoing the chart inside the page -->
+          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="150" y1="20" x2="150" y2="180" stroke="rgba(255,255,255,0.25)" stroke-width="1" />
+            <g class="forest-bars">
+              <line class="sankey-flow s1" x1="150" y1="32"  x2="240" y2="32"  stroke="rgba(255,255,255,0.85)" stroke-width="2" />
+              <circle cx="240" cy="32" r="3" fill="rgba(255,255,255,0.95)" />
+              <line class="sankey-flow s2" x1="150" y1="50"  x2="215" y2="50"  stroke="rgba(255,255,255,0.7)"  stroke-width="2" />
+              <circle cx="215" cy="50" r="3" fill="rgba(255,255,255,0.85)" />
+              <line class="sankey-flow s3" x1="150" y1="68"  x2="200" y2="68"  stroke="rgba(255,255,255,0.55)" stroke-width="2" />
+              <circle cx="200" cy="68" r="3" fill="rgba(255,255,255,0.75)" />
+              <line class="sankey-flow s1" x1="150" y1="86"  x2="180" y2="86"  stroke="rgba(255,255,255,0.4)"  stroke-width="2" />
+              <circle cx="180" cy="86" r="3" fill="rgba(255,255,255,0.6)" />
+              <line class="sankey-flow s2" x1="150" y1="104" x2="160" y2="104" stroke="rgba(255,255,255,0.35)" stroke-width="2" />
+              <circle cx="160" cy="104" r="3" fill="rgba(255,255,255,0.55)" />
+              <line class="sankey-flow s3" x1="150" y1="122" x2="115" y2="122" stroke="rgba(217,160,90,0.55)" stroke-width="2" />
+              <circle cx="115" cy="122" r="3" fill="rgba(217,160,90,0.85)" />
+              <line class="sankey-flow s1" x1="150" y1="140" x2="95"  y2="140" stroke="rgba(217,160,90,0.7)"  stroke-width="2" />
+              <circle cx="95"  cy="140" r="3" fill="rgba(217,160,90,0.95)" />
+              <line class="sankey-flow s2" x1="150" y1="158" x2="70"  y2="158" stroke="rgba(217,160,90,0.85)" stroke-width="2" />
+              <circle cx="70"  cy="158" r="3" fill="rgba(217,160,90,1)" />
+            </g>
+          </svg>
+          <div class="viz-card-content">
+            <span class="viz-tag">Interactive Chart</span>
+            <h3>The forests America lost, and found again</h3>
+            <p class="viz-desc">How every state's forest cover has grown or shrunk since 1945, ranked by census</p>
+            <span class="viz-cta">View project &rarr;</span>
+          </div>
+        </div>
+      </a>
+
       <a class="viz-card" href="https://public.flourish.studio/visualisation/26812347" target="_blank">
         <div class="viz-card-bg viz-gradient-1">
           <!-- Animated Sankey flows -->
