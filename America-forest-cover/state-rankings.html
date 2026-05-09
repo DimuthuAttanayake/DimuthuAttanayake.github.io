@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<title>The forests America lost, and found again</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="mlu.js?v=5"></script>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --rule: #d8d2c5;
+    --accent: #b5341a;
+    --panel: #f1ece1;
+    --green: #137a4e;
+    --green-light: #6fab8a;
+    --brown: #a06515;
+    --brown-light: #d4a771;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+    font-family: "Georgia", "Times New Roman", serif; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 36px 28px 80px; }
+  h1 { font-size: 38px; line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .kicker { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 14px; font-weight: 700; }
+  .dek { font-size: 17px; color: var(--muted); max-width: 100%; line-height: 1.5; margin: 0 0 24px; }
+  .byline { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px;
+    color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    padding: 8px 0; margin-bottom: 26px; }
+  .stage { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; }
+  .right-col { position: relative; }
+  .right-col-inner { position: -webkit-sticky; position: sticky; top: 20px; }
+  .chart-card { height: fit-content; }
+  svg#lolli { display: block; width: 100%; height: auto; overflow: hidden; }
+  @media (min-width: 801px) {
+    svg#lolli { min-width: 640px; }
+  }
+
+  /* Mobile: stack the layout, panel first, chart second.
+     Chart keeps a horizontal scroll so state names and bars stay legible. */
+  @media (max-width: 800px) {
+    .wrap { padding: 24px 16px 60px; }
+    h1 { font-size: 28px; }
+    .dek { font-size: 16px; }
+    .stage { grid-template-columns: 1fr; gap: 18px; }
+    .right-col { order: -1; }   /* controls + stats appear above chart on mobile */
+    .right-col-inner { position: static; top: auto; }
+    .chart-card { padding: 14px 14px; }
+    .threshold-fixed { height: 220px; }
+    .stat-panel { padding: 12px 14px; }
+    .panel { padding: 14px; }
+    .yearbig { font-size: 38px; }
+    .footer-note { font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 24px; line-height: 1.15; }
+    .dek { font-size: 15px; }
+    .chart-header .h-title { font-size: 18px; }
+    .chart-header .h-sub { font-size: 13px; }
+    .stat-panel .big-num { font-size: 26px; }
+  }
+  .chart-card { background: #fff; border: 1px solid var(--rule); padding: 18px 22px; }
+  .chart-header { padding: 4px 0 14px; border-bottom: 1px solid var(--rule); margin-bottom: 14px; }
+  .chart-header .h-cat { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  .chart-header .h-title { font-family: Georgia, serif; font-size: 22px; font-weight: 700; line-height: 1.15; margin-top: 4px; }
+  .chart-header .h-sub { font-family: Georgia, serif; font-size: 14px; color: var(--muted); font-style: italic; margin-top: 2px; }
+  .panel { background: var(--panel); border: 1px solid var(--rule); padding: 16px;
+    font-family: "Helvetica Neue", Arial, sans-serif; font-size: 13px; }
+  .panel h3 { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 10px;
+    color: var(--muted); font-weight: 700; }
+  .field { margin-bottom: 14px; }
+  .field input[type=range] { width: 100%; }
+  .yearbig { font-family: "Helvetica Neue", Arial, sans-serif; font-weight: 700;
+    font-size: 46px; letter-spacing: -0.02em; line-height: 1; }
+  .toggle-group { display: flex; flex-wrap: wrap; gap: 4px; }
+  .toggle-group button { padding: 6px 8px; font-size: 10px; letter-spacing: 0.04em;
+    background: #fff; color: var(--ink); border: 1px solid var(--rule);
+    font-family: "Helvetica Neue", Arial, sans-serif; cursor: pointer; font-weight: 600;
+    text-transform: uppercase; }
+  .toggle-group button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .toggle-group button:hover { opacity: 0.85; }
+  hr.sep { border: 0; border-top: 1px solid var(--rule); margin: 14px 0; }
+  .play-btn { width: 38px; padding: 6px 0; font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px; background: var(--ink); color: #fff; border: 1px solid var(--ink);
+    cursor: pointer; font-weight: 700; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  .legend-tick { font-size: 10px; color: var(--muted); font-family: "Helvetica Neue", Arial, sans-serif; }
+  .stat-panel { background: #fff; border: 1px solid var(--rule); padding: 14px 16px;
+    margin-top: 14px; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  .stat-panel h4 { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    margin: 0 0 8px; color: var(--muted); font-weight: 700; line-height: 1.4; }
+  .threshold-fixed { height: 240px; display: flex; flex-direction: column; }
+  .threshold-fixed h4 { flex: 0 0 auto; }
+  #threshold-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  .stat-panel .big-num { font-family: Georgia, serif; font-size: 32px; font-weight: 700; line-height: 1; }
+  .stat-panel .big-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .stat-panel .pct-pos { color: var(--green); }
+  .stat-panel .pct-neg { color: var(--brown); }
+  svg#lolli { display: block; width: 100%; height: auto; }
+  text { text-rendering: optimizeLegibility; }
+  .footer-note { margin-top: 28px; font-size: 12px; color: var(--muted);
+    line-height: 1.5; max-width: 100%; }
+  .map-link { display: inline-block; margin-top: 14px; font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
+    text-decoration: none; font-weight: 700; }
+  .map-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker">Land Use · 1945 to 2017</div>
+  <h1>The forests America lost, and found again</h1>
+  <p class="dek">In 70 years, the United States traded tens of millions of acres of farmland and forest for cities, parks and ranches. But the trades did not happen everywhere. New York, Alabama and Georgia grew their forests back as old farms were abandoned. California and Texas lost their forests to range and suburb. Watch every state make its own swap, one census at a time.</p>
+  <p class="dek" style="font-size:14px; margin-top:-6px">Each of the 48 contiguous states sits on its own row, ordered by how much its forest cover has grown or shrunk since 1945. As you change the year, the rows resort and the country's winners and losers reorder themselves.</p>
+  <div class="byline" style="margin-top:18px">Source · USDA ERS Major Land Uses (MLU) · 48 contiguous states · forest acres per state per year, 1945 through 2017</div>
+
+  <div class="stage">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="h-cat" id="chart-cat">FOREST LAND, 1945</div>
+        <div class="h-title" id="chart-title">In 1945, the U.S. had 602 million acres of forest land.</div>
+        <div class="h-sub" id="chart-sub">Drag the year slider on the right to watch every state move.</div>
+      </div>
+      <svg id="lolli" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+
+    <div class="right-col">
+      <div class="right-col-inner">
+      <div class="panel">
+        <h3>Year</h3>
+        <div class="yearbig" id="year-display">1945</div>
+        <div class="field" style="margin-top:10px">
+          <input type="range" id="year-slider" min="0" max="15" value="0" step="1" />
+        </div>
+        <div class="row" style="margin-bottom:8px">
+          <button id="play" class="play-btn">▶</button>
+          <span class="legend-tick" id="speed-label" style="flex:1">Speed: 0.4×</span>
+        </div>
+        <div class="field">
+          <input type="range" id="speed-slider" min="800" max="4000" step="100" value="2500" />
+        </div>
+
+        <hr class="sep" />
+        <h3>Forest field</h3>
+        <div class="field toggle-group" id="cat-group">
+          <button data-cat="forest_use_land" class="on">All forest</button>
+          <button data-cat="grazed_forest_use_land">Grazed</button>
+          <button data-cat="ungrazed_forest_use_land">Ungrazed</button>
+          <button data-cat="forest_share">% of state</button>
+        </div>
+
+        <h3 style="margin-top:14px">Display</h3>
+        <div class="field row" style="gap:6px">
+          <label style="flex:1; text-transform:none; color:var(--ink); font-size:12px; letter-spacing:0">Show state names</label>
+          <input type="checkbox" id="labels-toggle" checked />
+        </div>
+
+        <hr class="sep" />
+        <button id="replay" class="ghost" style="width:100%; margin-bottom:6px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; padding:8px 12px; border:1px solid var(--ink); background:#fff; color:var(--ink); cursor:pointer; font-weight:700">Replay intro</button>
+        <button id="export-svg" style="width:100%; margin-bottom:6px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; padding:8px 12px; border:1px solid var(--ink); background:#fff; color:var(--ink); cursor:pointer; font-weight:700">Export SVG</button>
+        <button id="export-png" style="width:100%; font-family:'Helvetica Neue',Arial,sans-serif; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; padding:8px 12px; border:1px solid var(--ink); background:var(--ink); color:#fff; cursor:pointer; font-weight:700">Export PNG</button>
+      </div>
+
+      <div class="stat-panel">
+        <h4 id="natl-title">U.S. FOREST LAND · 1945</h4>
+        <div class="big-num" id="natl-big">602M acres</div>
+        <div class="big-sub" id="natl-sub">baseline year</div>
+      </div>
+
+      <div class="stat-panel threshold-fixed">
+        <h4 id="threshold-title">≥ 50 % CHANGE SINCE 1945</h4>
+        <div id="threshold-list" style="font-size:12px; line-height:1.6">
+          <div style="font-size:12px; color:var(--muted); font-style:italic">No state has changed yet (1945 is the baseline).</div>
+        </div>
+      </div>
+      </div><!-- /.right-col-inner -->
+    </div>
+  </div>
+
+  <p class="footer-note">
+    <b>About the forest fields.</b> "All forest" is the USDA's total forest-use land for each state. "Grazed" is forest that doubles as cattle range, mostly in the West. "Ungrazed" is timber and conservation forest with no grazing. "Percent of state" normalizes by state size so heavily forested but small states (Maine, New Hampshire, Vermont) read fairly against larger states. States that started at zero grazed forest in 1945 and stayed there sit at zero on the chart.
+  </p>
+</div>
+
+<script>
+const M = window.MLU;
+const YEARS = M.years;
+const BASELINE = YEARS[0];
+const PRETTY = {
+  forest_use_land: "Forest land",
+  grazed_forest_use_land: "Grazed forest",
+  ungrazed_forest_use_land: "Ungrazed forest",
+  forest_share: "Forest as share of state",
+};
+
+const state = {
+  yearIdx: 0,
+  cat: "forest_use_land",
+  speedMs: 2500,
+  playing: false,
+  showNames: true,
+};
+
+function valueFor(abbr, yr, cat) {
+  const s = M.states[abbr]; if (!s) return null;
+  const y = s.y[yr]; if (!y) return null;
+  if (cat === "forest_share") {
+    const f = y["forest_use_land"] || 0;
+    const t = y["total_land"] || 1;
+    return f / t;  // share, 0..1
+  }
+  return y[cat] || 0;
+}
+function nationalTotal(yr, cat) {
+  let s = 0;
+  for (const sa in M.states) s += valueFor(sa, yr, cat) || 0;
+  return s;
+}
+
+const COL_GREEN = "#137a4e";   // emerald
+const COL_BROWN = "#a06515";   // golden brown
+
+const svg = d3.select("#lolli");
+function isMobile() { return window.innerWidth <= 800; }
+function chartDims() {
+  if (isMobile()) {
+    return { W: 380, PAD_L: 80, PAD_R: 56, rowH: 18, fontName: 11, fontVal: 10, dotR: 3.4, useAbbr: true };
+  }
+  return { W: 820, PAD_L: 150, PAD_R: 80, rowH: 17, fontName: 11, fontVal: 10, dotR: 3.6, useAbbr: false };
+}
+
+function pctChange(v, v0) {
+  // Always return a number so all 48 states stay visible.
+  // Cases:
+  //  v0 > 0: standard % change
+  //  v0 = 0 and v = 0: 0 % (no change, no signal)
+  //  v0 = 0 and v > 0: cap at +200 % so the dot stays on chart
+  if (v0 && v0 > 0) return (v - v0) / v0 * 100;
+  if (v && v > 0) return 200;
+  return 0;
+}
+function drawLollipop(yr, cat) {
+  const dims = chartDims();
+  const W = dims.W, PAD_L = dims.PAD_L, PAD_R = dims.PAD_R, rowH = dims.rowH;
+
+  // Build rows
+  const rows = [];
+  for (const sa in M.states) {
+    const v = valueFor(sa, yr, cat) || 0;
+    const v0 = valueFor(sa, BASELINE, cat) || 0;
+    rows.push({ sa, name: M.states[sa].name, pct: pctChange(v, v0), v, v0 });
+  }
+  if (yr === BASELINE) {
+    rows.sort((a, b) => b.v - a.v);
+  } else {
+    rows.sort((a, b) => b.pct - a.pct);
+  }
+
+  const totalH = rowH * rows.length + 36;
+  svg.attr("viewBox", `0 0 ${W} ${totalH}`)
+     .attr("overflow", "hidden")
+     .style("display", "block").style("width", "100%").style("height", "auto");
+
+  // Hard clip-path so nothing can render past the chart's bounding rectangle.
+  let defs = svg.select("defs");
+  if (defs.empty()) defs = svg.insert("defs", ":first-child");
+  defs.html("");
+  defs.append("clipPath").attr("id", "lolli-clip-rect")
+    .append("rect").attr("x", 0).attr("y", 0).attr("width", W).attr("height", totalH);
+
+  // Ensure a single clip-wrapper group exists. All chart content lives inside it.
+  let clipG = svg.select("g.clip-wrapper");
+  if (clipG.empty()) clipG = svg.append("g").attr("class", "clip-wrapper");
+  clipG.attr("clip-path", "url(#lolli-clip-rect)");
+
+  let maxAbs = 0;
+  for (const sa in M.states) {
+    for (const y of YEARS) {
+      const v = valueFor(sa, y, cat) || 0;
+      const v0 = valueFor(sa, BASELINE, cat) || 0;
+      if (!v0) continue;
+      const p = Math.abs((v - v0) / v0 * 100);
+      if (p > maxAbs) maxAbs = p;
+    }
+  }
+  maxAbs = Math.max(50, Math.min(maxAbs * 1.05, 600));
+  // Clamp so bars and labels never escape the chart box, even for runaway values.
+  const x = d3.scaleLinear().domain([-maxAbs, maxAbs]).range([PAD_L, W - PAD_R]).clamp(true);
+  const xZero = x(0);
+
+  // zero line — drawn inside the clip wrapper
+  let axisLine = clipG.selectAll("line.axis-zero").data([0]);
+  axisLine = axisLine.enter().append("line").attr("class", "axis-zero")
+    .attr("stroke", "#d8d2c5").attr("stroke-width", 1).merge(axisLine)
+    .attr("x1", xZero).attr("x2", xZero)
+    .attr("y1", 10).attr("y2", totalH - 10);
+
+  // rows — inside the clip wrapper so they're hard-clipped to chart bounds
+  const rowSel = clipG.selectAll("g.row").data(rows, d => d.sa);
+  rowSel.exit().remove();
+
+  const rowEnter = rowSel.enter().append("g").attr("class", "row")
+    .attr("transform", (d, i) => `translate(0, ${24 + i * rowH})`);
+  rowEnter.append("text").attr("class", "row-name");
+  rowEnter.append("line").attr("class", "row-stem").attr("y1", 0).attr("y2", 0).attr("stroke-width", 2);
+  rowEnter.append("circle").attr("class", "row-dot").attr("cy", 0).attr("r", dims.dotR);
+  rowEnter.append("text").attr("class", "row-val");
+
+  const all = rowEnter.merge(rowSel);
+
+  // Set TEXT and STATIC attrs immediately so they always update on re-render
+  all.select("text.row-name")
+    .text(d => dims.useAbbr ? d.sa : d.name)
+    .style("display", state.showNames ? null : "none")
+    .attr("x", PAD_L - 8).attr("y", 4)
+    .attr("text-anchor", "end")
+    .attr("font-family", "Georgia, serif")
+    .attr("font-size", dims.fontName).attr("font-weight", 600);
+  all.select("text.row-val")
+    .text(d => {
+      if (d.pct === 200) return "(new)";
+      const clamped = Math.abs(d.pct) > maxAbs;
+      const sign = d.pct >= 0 ? "+" : "";
+      return clamped ? `${sign}${maxAbs.toFixed(0)}%+` : `${sign}${d.pct.toFixed(0)}%`;
+    })
+    .attr("y", 4)
+    .attr("font-family", "Helvetica Neue, Arial, sans-serif")
+    .attr("font-size", dims.fontVal).attr("font-weight", 600).attr("font-variant-numeric", "tabular-nums");
+
+  // Smooth D3 transitions for position, color, x-coords (the satisfying re-sort)
+  const t = d3.transition().duration(800).ease(d3.easeCubicInOut);
+
+  all.transition(t)
+    .attr("transform", (d, i) => `translate(0, ${24 + i * rowH})`);
+
+  all.select("text.row-name").transition(t)
+    .attr("fill", d => d.pct >= 0 ? COL_GREEN : COL_BROWN);
+
+  all.select("line.row-stem").transition(t)
+    .attr("x1", xZero)
+    .attr("x2", d => x(d.pct))
+    .attr("stroke", d => d.pct >= 0 ? COL_GREEN : COL_BROWN);
+
+  all.select("circle.row-dot").transition(t)
+    .attr("cx", d => x(d.pct))
+    .attr("fill", d => d.pct >= 0 ? COL_GREEN : COL_BROWN);
+
+  all.select("text.row-val").transition(t)
+    .attr("x", d => x(d.pct) + (d.pct >= 0 ? 8 : -8))
+    .attr("text-anchor", d => d.pct >= 0 ? "start" : "end")
+    .attr("fill", d => d.pct >= 0 ? COL_GREEN : COL_BROWN);
+}
+
+function tweenNumber(elId, newVal, suffix) {
+  const node = document.getElementById(elId);
+  if (!node) return;
+  const cur = parseFloat(node.textContent.replace(/[^0-9.\-]/g,'')) || 0;
+  const isPct = suffix === "%";
+  d3.select(node).transition().duration(700).tween("num", function() {
+    const interp = d3.interpolateNumber(cur, newVal);
+    return t => {
+      const v = interp(t);
+      node.textContent = (isPct ? v.toFixed(1) : Math.round(v)) + suffix;
+    };
+  });
+}
+
+function natlForestShare(yr) {
+  let f = 0, t = 0;
+  for (const sa in M.states) {
+    f += (M.states[sa].y[yr] && M.states[sa].y[yr]["forest_use_land"]) || 0;
+    t += (M.states[sa].y[yr] && M.states[sa].y[yr]["total_land"]) || 0;
+  }
+  return t ? f / t : 0;
+}
+
+function updateHeader(yr, cat) {
+  d3.select("#chart-cat").text(`${PRETTY[cat].toUpperCase()}, ${yr}`);
+  if (cat === "forest_share") {
+    const now = natlForestShare(yr) * 100;
+    const base = natlForestShare(BASELINE) * 100;
+    const ch = now - base;
+    if (yr === BASELINE) {
+      d3.select("#chart-title").html(`In 1945, <b>${now.toFixed(1)}%</b> of the lower 48 was classified as forest.`);
+      d3.select("#chart-sub").text("Drag the year slider on the right to watch every state move.");
+    } else {
+      d3.select("#chart-title").html(`By ${yr}, <b>${now.toFixed(1)}%</b> of the lower 48 was forest, <b>${ch >= 0 ? "+" : ""}${ch.toFixed(1)} pp</b> versus 1945.`);
+      d3.select("#chart-sub").text("State names are colored green if they have more forest than they did in 1945, brown if less.");
+    }
+    return;
+  }
+  const totalNow = nationalTotal(yr, cat);
+  const total45 = nationalTotal(BASELINE, cat);
+  const dM = (totalNow - total45) / 1e6;
+  const pct = total45 ? ((totalNow - total45) / total45) * 100 : 0;
+  const verb = dM >= 0 ? "added" : "lost";
+  if (yr === BASELINE) {
+    d3.select("#chart-title").html(`In 1945, the U.S. had <b>${(totalNow/1e6).toFixed(0)} million acres</b> of ${PRETTY[cat].toLowerCase()}.`);
+    d3.select("#chart-sub").text("Drag the year slider on the right to watch every state move.");
+  } else {
+    d3.select("#chart-title").html(`By ${yr}, the U.S. had ${verb} <b>${Math.abs(dM).toFixed(0)} million acres</b> of ${PRETTY[cat].toLowerCase()}, <b>${pct >= 0 ? "+" : ""}${pct.toFixed(1)}%</b> versus 1945.`);
+    d3.select("#chart-sub").text("State names are colored green if they have more of this category than they did in 1945, brown if less.");
+  }
+}
+
+function updateNational(yr, cat) {
+  d3.select("#natl-title").text(`U.S. ${PRETTY[cat].toUpperCase()} · ${yr}`);
+  if (cat === "forest_share") {
+    const now = natlForestShare(yr) * 100;
+    const base = natlForestShare(BASELINE) * 100;
+    const ch = now - base;
+    tweenNumber("natl-big", now, "%");
+    const subEl = document.getElementById("natl-sub");
+    if (yr === BASELINE) {
+      subEl.className = "big-sub";
+      subEl.textContent = "baseline year";
+    } else {
+      subEl.className = "big-sub " + (ch >= 0 ? "pct-pos" : "pct-neg");
+      subEl.textContent = `${ch >= 0 ? "+" : ""}${ch.toFixed(2)} pp vs 1945`;
+    }
+    return;
+  }
+  const totalNow = nationalTotal(yr, cat);
+  const total45 = nationalTotal(BASELINE, cat);
+  const pct = total45 ? ((totalNow - total45) / total45) * 100 : 0;
+  tweenNumber("natl-big", totalNow / 1e6, "M acres");
+  const subEl = document.getElementById("natl-sub");
+  if (yr === BASELINE) {
+    subEl.className = "big-sub";
+    subEl.textContent = "baseline year";
+  } else {
+    subEl.className = "big-sub " + (pct >= 0 ? "pct-pos" : "pct-neg");
+    subEl.textContent = `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}% vs 1945`;
+  }
+}
+
+function updateThresholdList(yr, cat) {
+  // For grazed and ungrazed, use top-5-biggest-change instead of the 50 % threshold,
+  // because nearly every Eastern state has lost most of its grazed forest, etc.
+  const useTop5 = (cat === "grazed_forest_use_land" || cat === "ungrazed_forest_use_land");
+  d3.select("#threshold-title").text(
+    useTop5
+      ? `TOP 5 BIGGEST CHANGES IN ${PRETTY[cat].toUpperCase()} SINCE 1945`
+      : `≥ 50 % CHANGE IN ${PRETTY[cat].toUpperCase()} SINCE 1945`
+  );
+  const host = d3.select("#threshold-list");
+  host.html("");
+  const rows = [];
+  for (const sa in M.states) {
+    const v = valueFor(sa, yr, cat) || 0;
+    const v0 = valueFor(sa, BASELINE, cat) || 0;
+    if (!v0 || v0 === 0) continue;
+    const pct = (v - v0) / v0 * 100;
+    if (useTop5) {
+      rows.push({ name: M.states[sa].name, pct });
+    } else if (Math.abs(pct) >= 50) {
+      rows.push({ name: M.states[sa].name, pct });
+    }
+  }
+  if (useTop5) {
+    rows.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct));
+    rows.splice(5);  // keep only top 5
+  }
+  if (!rows.length) {
+    host.append("div").attr("style", "font-size:12px; color:var(--muted); font-style:italic")
+      .text(yr === BASELINE ? "No state has changed yet (1945 is the baseline)." : "No state has crossed the 50 % threshold this year.");
+    return;
+  }
+  rows.sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct));
+  rows.forEach(r => {
+    const row = host.append("div").attr("style", "display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dotted #e8e2d3");
+    row.append("span").attr("style", "font-weight:600").text(r.name);
+    row.append("span").attr("style", `font-variant-numeric:tabular-nums; color:${r.pct >= 0 ? COL_GREEN : COL_BROWN}`)
+       .text(`${r.pct >= 0 ? "+" : ""}${r.pct.toFixed(0)} %`);
+  });
+}
+
+function render() {
+  const yr = YEARS[state.yearIdx];
+  d3.select("#year-display").text(yr);
+  d3.select("#year-slider").property("value", state.yearIdx);
+  drawLollipop(yr, state.cat);
+  updateHeader(yr, state.cat);
+  updateNational(yr, state.cat);
+  updateThresholdList(yr, state.cat);
+  alignBottoms();
+}
+
+// controls
+d3.select("#year-slider").attr("max", YEARS.length - 1).on("input", function() {
+  state.yearIdx = +this.value;
+  render();
+});
+
+d3.selectAll("#cat-group button").on("click", function() {
+  d3.selectAll("#cat-group button").classed("on", false);
+  d3.select(this).classed("on", true);
+  state.cat = this.dataset.cat;
+  render();
+});
+
+d3.select("#speed-slider").on("input", function() {
+  state.speedMs = +this.value;
+  d3.select("#speed-label").text(`Speed: ${(1000/state.speedMs).toFixed(1)}×`);
+});
+
+d3.select("#labels-toggle").on("change", function() {
+  state.showNames = this.checked;
+  render();
+});
+
+let _timer = null;
+d3.select("#play").on("click", function() {
+  state.playing = !state.playing;
+  this.textContent = state.playing ? "❚❚" : "▶";
+  if (state.playing) {
+    _timer = setInterval(() => {
+      state.yearIdx = (state.yearIdx + 1) % YEARS.length;
+      render();
+    }, state.speedMs);
+  } else { clearInterval(_timer); _timer = null; }
+});
+
+d3.select("#replay").on("click", function() {
+  if (state.playing) { d3.select("#play").node().click(); }
+  state.yearIdx = 0;
+  render();
+});
+
+// Export
+function downloadBlob(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 200);
+}
+function buildExportSvg() {
+  const node = document.getElementById("lolli").cloneNode(true);
+  node.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  const vb = node.getAttribute("viewBox").split(/\s+/).map(Number);
+  const W = vb[2], H = vb[3] + 80;
+  node.setAttribute("viewBox", `0 -60 ${W} ${H}`);
+  node.setAttribute("width", W * 1.5);
+  node.setAttribute("height", H * 1.5);
+  const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  bg.setAttribute("x", 0); bg.setAttribute("y", -60);
+  bg.setAttribute("width", W); bg.setAttribute("height", H);
+  bg.setAttribute("fill", "#faf7f2");
+  node.insertBefore(bg, node.firstChild);
+  const yr = YEARS[state.yearIdx];
+  const t1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  t1.setAttribute("x", 18); t1.setAttribute("y", -36);
+  t1.setAttribute("font-family", "Georgia, serif");
+  t1.setAttribute("font-size", 16); t1.setAttribute("font-weight", 700);
+  t1.setAttribute("fill", "#1a1a1a");
+  t1.textContent = `${PRETTY[state.cat]}, ${yr}`;
+  const t2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  t2.setAttribute("x", 18); t2.setAttribute("y", -18);
+  t2.setAttribute("font-family", "Helvetica Neue, Arial, sans-serif");
+  t2.setAttribute("font-size", 11);
+  t2.setAttribute("fill", "#6b6b6b");
+  t2.textContent = "Source: USDA ERS Major Land Uses, 1945 to 2017, 48 contiguous states.";
+  node.appendChild(t1); node.appendChild(t2);
+  return node;
+}
+d3.select("#export-svg").on("click", () => {
+  const node = buildExportSvg();
+  const ser = new XMLSerializer().serializeToString(node);
+  const blob = new Blob([ser], { type: "image/svg+xml;charset=utf-8" });
+  const yr = YEARS[state.yearIdx];
+  downloadBlob(blob, `state-rankings_${yr}_${state.cat}.svg`);
+});
+d3.select("#export-png").on("click", () => {
+  const node = buildExportSvg();
+  const ser = new XMLSerializer().serializeToString(node);
+  const blob = new Blob([ser], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => {
+    const SCALE = 2;
+    const w = +node.getAttribute("width"), h = +node.getAttribute("height");
+    const canvas = document.createElement("canvas");
+    canvas.width = w * SCALE; canvas.height = h * SCALE;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#faf7f2"; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(b => {
+      const yr = YEARS[state.yearIdx];
+      downloadBlob(b, `state-rankings_${yr}_${state.cat}.png`);
+      URL.revokeObjectURL(url);
+    }, "image/png");
+  };
+  img.src = url;
+});
+
+// On desktop, stretch the threshold panel so the right column ends at the same
+// vertical line as the chart card. On mobile (stacked), do nothing.
+function alignBottoms() {
+  const threshold = document.querySelector('.threshold-fixed');
+  if (!threshold) return;
+  if (window.innerWidth <= 800) {
+    threshold.style.height = '240px';
+    return;
+  }
+  threshold.style.height = '240px';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const card = document.querySelector('.chart-card');
+      const inner = document.querySelector('.right-col-inner');
+      if (!card || !inner) return;
+      // offsetHeight is layout height regardless of sticky/scroll position
+      const diff = card.offsetHeight - inner.offsetHeight;
+      if (diff > 0) {
+        threshold.style.height = (240 + diff) + 'px';
+      }
+    });
+  });
+}
+
+render();
+window.addEventListener('resize', () => {
+  render();        // re-render the chart with the right mobile/desktop dimensions
+  alignBottoms();
+});
+window.addEventListener('load', alignBottoms);
+setTimeout(alignBottoms, 200);
+</script>
+</body>
+</html>
