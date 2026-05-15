@@ -328,13 +328,23 @@ const ZONE = {
   'flushing':      { lat: 40.760, lng: -73.832, name: "Flushing" }
 };
 
-const ZONE_AREA = {
-  'village':"lower",'east-village':"lower",'soho':"lower",'les':"lower",'tribeca':"lower",
-  'chelsea':"midtown",'flatiron':"midtown",'midtown-west':"midtown",'midtown-east':"midtown",
-  'ues':"uptown",'uws':"uptown",'harlem':"uptown",
-  'williamsburg':"brooklyn",'bushwick':"brooklyn",'dumbo':"brooklyn",'park-slope':"brooklyn",'cobble-hill':"brooklyn",
-  'lic':"queens",'flushing':"queens"
+// Each area key contains a list of zones. User picks an area; we hard-filter by it.
+const AREA_ZONES = {
+  'lower':    ['village','east-village','soho','les','tribeca'],
+  'midtown':  ['chelsea','flatiron','midtown-west','midtown-east'],
+  'uws':      ['uws'],
+  'ues':      ['ues'],
+  'harlem':   ['harlem'],
+  'brooklyn': ['williamsburg','bushwick','dumbo','park-slope','cobble-hill'],
+  'queens':   ['lic','flushing']
 };
+function areaOfZone(z) {
+  for (const a in AREA_ZONES) { if (AREA_ZONES[a].includes(z)) return a; }
+  return 'other';
+}
+// Legacy compat for any v.area reads
+const ZONE_AREA = {};
+Object.entries(AREA_ZONES).forEach(([a, zs]) => zs.forEach(z => { ZONE_AREA[z] = a; }));
 
 // ===== VENUES =====
 // cat, zone (derives area), weather, good, mood, when, price, quality, blurb, vibeline, addr
@@ -666,11 +676,13 @@ const FLOW_BASE = [
     { v:"fun",      label:"Fun and spontaneous", hint:"let's just see what happens", icon:"ico-fun" },
     { v:"romantic", label:"Romantic and a little cinematic", hint:"candles, skyline, slow tempo", icon:"ico-romantic" }
   ]},
-  { key:"area", q:"Any neighborhood preference?", options:[
-    { v:"lower",    label:"Lower Manhattan", hint:"Village, SoHo, LES, Tribeca", icon:"ico-area" },
+  { key:"area", q:"Any neighborhood preference?", helper:"Strict filter — picks will only come from this area.", options:[
+    { v:"lower",    label:"Lower Manhattan", hint:"Village, East Village, SoHo, LES, Tribeca", icon:"ico-area" },
     { v:"midtown",  label:"Midtown / Chelsea / Flatiron", hint:"the central spine", icon:"ico-area" },
-    { v:"uptown",   label:"Uptown", hint:"UES, UWS, Harlem", icon:"ico-area" },
-    { v:"brooklyn", label:"Brooklyn", hint:"Williamsburg, DUMBO, Park Slope", icon:"ico-area" },
+    { v:"uws",      label:"Upper West Side", hint:"Lincoln Center, Museum of Natural History", icon:"ico-area" },
+    { v:"ues",      label:"Upper East Side", hint:"Met, museum mile, Madison Ave", icon:"ico-area" },
+    { v:"harlem",   label:"Harlem / Morningside / Wash Heights", hint:"Columbia, the Cloisters", icon:"ico-area" },
+    { v:"brooklyn", label:"Brooklyn", hint:"Williamsburg, DUMBO, Park Slope, Bushwick", icon:"ico-area" },
     { v:"queens",   label:"Queens", hint:"LIC, Astoria, Flushing", icon:"ico-area" },
     { v:"any",      label:"Surprise me, anywhere in the city", hint:"let the algorithm cook", icon:"ico-shuffle" }
   ]},
@@ -818,17 +830,16 @@ function L(key, v) {
     tourist:{ local:"Local", "local-tourist":"Local-tourist", visitor:"Visitor" },
     budget:{ "$":"$ cheap", "$$":"$$ mid", "$$$":"$$$ nicer", "$$$$":"$$$$ splurge", any:"Any budget" },
     mood:{ calm:"Calm", crowds:"Crowds", fun:"Fun", romantic:"Romantic" },
-    area:{ lower:"Lower MH", midtown:"Midtown", uptown:"Uptown", brooklyn:"Brooklyn", queens:"Queens", any:"Anywhere" }
+    area:{ lower:"Lower MH", midtown:"Midtown", uws:"UWS", ues:"UES", harlem:"Harlem", brooklyn:"Brooklyn", queens:"Queens", any:"Anywhere" }
   };
   return (map[key] && map[key][v]) || v;
 }
 
 function score(v) {
+  // HARD area filter: if user picked a specific area, exclude venues outside it
+  if (state.area && state.area !== "any" && v.area !== state.area) return -Infinity;
   let s = 0;
-  if (state.area !== "any") {
-    if (v.area === state.area) s += 5;
-    else s -= 2;
-  }
+  if (state.area && state.area !== "any") s += 5;
   if (state.weather === "rainy" || state.weather === "cold") {
     if (v.weather === "indoor") s += 3;
     else if (v.weather === "outdoor") s -= 4;
@@ -847,17 +858,19 @@ function score(v) {
   } else if (v.good.includes(state.company)) s += 4;
   else s -= 1;
   if (v.mood.includes(state.mood)) s += 4;
-  // Budget match (food, shopping, theater, music, sight tickets)
-  if (state.budget !== "any" && ["food","shopping","theater","music","sight"].includes(v.cat) && v.price !== "free") {
-    if (v.price === state.budget) s += 5;
-    else {
-      // Distance penalty by tier delta
+  // Budget match (food, shopping, theater, music, sight tickets) — strict
+  if (state.budget !== "any" && ["food","shopping","theater","music","sight"].includes(v.cat)) {
+    if (v.price === "free") {
+      s += (state.budget === "$") ? 6 : 2; // free is great for cheap, fine for others
+    } else {
       const tier = (p) => ({"$":1,"$$":2,"$$$":3,"$$$$":4})[p] || 2;
-      const delta = Math.abs(tier(v.price) - tier(state.budget));
-      s -= delta * 2.5;
+      const delta = tier(v.price) - tier(state.budget); // positive = pricier than budget
+      if (delta === 0) s += 7;
+      else if (delta === 1) s -= 4;
+      else if (delta === -1) s += 2;   // one tier cheaper is fine
+      else if (delta >= 2) s -= 25;    // way too expensive — effectively excludes
+      else s -= 2;                      // more than 1 tier cheaper, slight penalty
     }
-  } else if (state.budget === "$" && v.price === "free") {
-    s += 4; // free is great when budget is cheap
   }
 
   // Cuisine filter (food only)
@@ -891,7 +904,9 @@ function score(v) {
 }
 
 function pickFor(cat, n) {
-  const scored = V.filter(v => v.cat === cat).map(v => ({ v, s: score(v) }));
+  const scored = V.filter(v => v.cat === cat)
+    .map(v => ({ v, s: score(v) }))
+    .filter(x => x.s !== -Infinity);
   scored.sort((a, b) => b.s - a.s);
   return scored.slice(0, n).map(x => x.v);
 }
@@ -908,6 +923,7 @@ function pickClustered(cats, n) {
   cats.forEach(c => {
     V.filter(v => v.cat === c).forEach(v => {
       const s = score(v);
+      if (s === -Infinity) return;
       if (!best || s > best.s) best = { v, s };
     });
   });
@@ -918,6 +934,7 @@ function pickClustered(cats, n) {
   cats.forEach(c => {
     const scored = V.filter(v => v.cat === c).map(v => {
       let s = score(v);
+      if (s === -Infinity) return { v, s };
       if (anchorZone) {
         const km = distKm(v.zone, anchorZone);
         if (km < 0.6) s += 8;        // same/adjacent block
@@ -927,7 +944,7 @@ function pickClustered(cats, n) {
         else s -= 8;                  // far / different borough
       }
       return { v, s };
-    });
+    }).filter(x => x.s !== -Infinity);
     scored.sort((a, b) => b.s - a.s);
     result[c] = scored.slice(0, n).map(x => x.v);
   });
