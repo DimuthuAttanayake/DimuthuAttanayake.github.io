@@ -138,6 +138,46 @@ document.querySelectorAll('.portrait').forEach(el => observer.observe(el));
     <h2>Data Visualization</h2>
 
     <div class="grid">
+      <a class="viz-card" href="NYC-thing-to-do/index.html" target="_blank">
+        <div class="viz-card-bg" style="background: linear-gradient(135deg, #15151c 0%, #1f1f2b 50%, #262635 100%);">
+          <!-- Animated NYC skyline with twinkling windows + moon -->
+          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+            <!-- Moon -->
+            <circle cx="245" cy="40" r="11" fill="rgba(232,176,89,0.45)" />
+            <circle cx="242" cy="38" r="9" fill="#15151c" />
+            <!-- Skyline silhouette -->
+            <path d="M0,200 L0,140 L18,140 L18,110 L34,110 L34,135 L52,135 L52,90 L62,90 L62,70 L72,70 L72,90 L88,90 L88,125 L106,125 L106,108 L124,108 L124,150 L142,150 L142,118 L158,118 L158,100 L174,100 L174,80 L188,80 L188,120 L206,120 L206,138 L222,138 L222,108 L240,108 L240,60 L256,60 L256,40 L266,40 L266,60 L276,60 L276,95 L294,95 L294,130 L300,130 L300,200 Z" fill="rgba(232,176,89,0.15)" stroke="rgba(232,176,89,0.6)" stroke-width="1" />
+            <!-- Twinkling windows -->
+            <g class="sankey-flow s1" fill="rgba(232,176,89,0.9)">
+              <circle cx="22" cy="125" r="1.4" /><circle cx="28" cy="125" r="1.4" />
+              <circle cx="58" cy="118" r="1.4" /><circle cx="68" cy="80" r="1.4" />
+              <circle cx="98" cy="115" r="1.4" /><circle cx="118" cy="135" r="1.4" />
+            </g>
+            <g class="sankey-flow s2" fill="rgba(232,176,89,0.7)">
+              <circle cx="146" cy="138" r="1.4" /><circle cx="166" cy="110" r="1.4" />
+              <circle cx="194" cy="105" r="1.4" /><circle cx="212" cy="125" r="1.4" />
+            </g>
+            <g class="sankey-flow s3" fill="rgba(232,176,89,0.85)">
+              <circle cx="246" cy="85" r="1.4" /><circle cx="260" cy="55" r="1.4" />
+              <circle cx="280" cy="80" r="1.4" /><circle cx="290" cy="115" r="1.4" />
+            </g>
+            <!-- Tiny pigeon mascot -->
+            <g transform="translate(40,170)">
+              <ellipse cx="0" cy="0" rx="9" ry="5" fill="rgba(232,176,89,0.7)" />
+              <circle cx="8" cy="-4" r="3.5" fill="rgba(232,176,89,0.7)" />
+              <circle cx="9" cy="-5" r="0.7" fill="#15151c" />
+              <path d="M11,-3 L14,-4 L11.5,-2 Z" fill="rgba(217,119,87,0.9)" />
+            </g>
+          </svg>
+          <div class="viz-card-content">
+            <span class="viz-tag">Interactive Game</span>
+            <h3>What Should I Do in NYC <span style="color: rgb(232,176,89);">Today?</span></h3>
+            <p class="viz-desc">A choose-your-own city game. Tell it about your day, get a curated walking plan across 200+ venues.</p>
+            <span class="viz-cta">Play project &rarr;</span>
+          </div>
+        </div>
+      </a>
+
       <a class="viz-card" href="America-forest-cover/state-rankings.html" target="_blank">
         <div class="viz-card-bg viz-gradient-forest">
           <!-- Animated lollipop bars echoing the chart inside the page -->
