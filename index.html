@@ -1,420 +1,233 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dimuthu Attanayake</title>
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dimuthu Attanayake</title>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet" />
 
-<!-- Styles -->
-<link rel="stylesheet" href="style/main.css">
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="style/main.css" />
+  </head>
 
-<body>
+  <body style="background: white">
 
-<!-- NAVIGATION -->
-<nav>
-  <div class="nav-inner">
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#reporting">Reporting</a>
-      <a href="#viz">Data Viz</a>
+    <!-- Headshot -->
+    <div id="photo" class="center">
+      <img src="Images/Dimuthu.jpg" class="circle responsive-img"
+        style="max-height: 95%; max-width: 95%; margin-bottom: 0" />
     </div>
-  </div>
-</nav>
 
-<main>
+    <!-- Text introduction -->
+    <div id="intro">
+      <p style="font-weight: 400">
+        Hello! I'm Dimuthu Attanayake, a data journalist reporting on climate,
+        environment, and global geopolitics.
+      </p>
+      <p>
+        Over the last decade, I've worked across reporting, research, and
+        business advisory &mdash; with cross-border investigations for
+        <a href="https://www.theguardian.com/environment/2023/sep/07/everything-is-destroyed-dynamite-use-sends-shockwaves-through-fishing-industries-sri-lanka" target="_blank">The Guardian</a>,
+        <a href="https://www.scmp.com/week-asia/people/article/3205108/left-die-fates-5-rohingya-boats-across-asia-spotlight-enduring-crisis-stateless-muslim-minority" target="_blank">South China Morning Post</a>,
+        <a href="https://www.google.com/amp/s/amp.dw.com/en/sri-lanka-refugees-anguish-as-unhcr-office-set-to-close/a-65790656" target="_blank">Deutsche Welle</a>,
+        <a href="https://asia.nikkei.com/spotlight/environment/plastic-spills-threaten-sri-lanka-and-india-as-asia-rules-polymer-trade" target="_blank">Nikkei Asia</a>,
+        <a href="https://foreignpolicy.com/2022/07/13/sri-lanka-food-economic-crisis-shortages-prices-inflation-women-children/" target="_blank">Foreign Policy</a>,
+        and the BBC.
+      </p>
+      <p>
+        I'm currently a graduate student in the Data Journalism program at
+        Columbia University. My
+        <a href="https://pulitzercenter.org/projects/scorched-heat-sri-lankan-female-farmers-bear-climate-change" target="_blank">Pulitzer Center</a>
+        reporting on climate and gender-based violence won the
+        <a href="https://www.adb.org/adbi/news/adbi-awards-honor-works-of-journalism-urging-actions-for-accelerating-sustainable-transition" target="_blank">2024 Developing Asia Journalism Award</a>,
+        and I served as South Asia representative of the
+        <a href="https://www.un.org/en/reham-al-farra-memorial-journalism-fellowship/dimuthu-attanayake-sri-lanka" target="_blank">UN Reham Al-Farra Memorial Journalism Fellowship</a>
+        covering the UN General Assembly.
+      </p>
+    </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>Hello, I'm <span class="accent">Dimuthu Attanayake</span></h1>
-    <p class="hero-sub">Data Journalist</p>
-    <div class="hero-socials">
-      <a href="https://twitter.com/dimuthudca" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      <a href="https://github.com/DimuthuAttanayake" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <!-- Social icons -->
+    <div class="socials">
       <a href="https://www.linkedin.com/in/dimuthuattanayake" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
       <a href="mailto:dimuthuc.attanayake@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://github.com/DimuthuAttanayake" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/dimuthudca" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
     </div>
-  </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="about">
-    <div class="about-column">
-      <h2>About me</h2>
+    <!-- Reporting -->
+    <div>
+      <p class="category">Reporting</p>
+      <p class="category-desc">
+        Long-form and investigative reporting on climate, environment, refugees,
+        and geopolitics &mdash; built on original field reporting, document
+        analysis, and data work in Python and R.
+      </p>
+    </div>
 
-      <div class="about-layout">
-      <figure class="portrait">
-        <img src="Images/Dimuthu.jpg" alt="Dimuthu Attanayake">
-      </figure>
-
-      <div class="about-text">
-        <p>
-          I am currently a graduate student at the Data Journalism program at Columbia University in New York. Over the last decade, I have worked as a journalist, a researcher and a business advisor. My cross-border investigations are intersectional and span a range of beats, including the global refugee crisis for
-          <a href="https://www.google.com/amp/s/amp.dw.com/en/sri-lanka-refugees-anguish-as-unhcr-office-set-to-close/a-65790656" target="_blank">Deutsche Welle</a>,
-          illegal and destructive blast fishing in Asia and Africa for
-          <a href="https://www.theguardian.com/environment/2023/sep/07/everything-is-destroyed-dynamite-use-sends-shockwaves-through-fishing-industries-sri-lanka" target="_blank">the Guardian</a>,
-          the plight of Rohingya refugees for the
-          <a href="https://www.scmp.com/week-asia/people/article/3205108/left-die-fates-5-rohingya-boats-across-asia-spotlight-enduring-crisis-stateless-muslim-minority" target="_blank">South China Morning Post</a>,
-          and plastic spills in Asia for
-          <a href="https://asia.nikkei.com/spotlight/environment/plastic-spills-threaten-sri-lanka-and-india-as-asia-rules-polymer-trade" target="_blank">Nikkei Asia</a>.
-        </p>
-
-        <p>
-          As the South Asia representative of the
-          <a href="https://www.un.org/en/reham-al-farra-memorial-journalism-fellowship/dimuthu-attanayake-sri-lanka" target="_blank">Reham Al-Farra Memorial Journalism Fellowship of the United Nations</a>
-          in 2024, I covered the UN General Assembly and the Security Council. A mentorship from the
-          <a href="https://saveourseas.com/meet-our-winners/" target="_blank">Save Our Seas Foundation</a>
-          took me to French Polynesia for immersive scientific reporting, where I reported on how black-tipped reef sharks respond to ocean warming. From Berlin, I reported on how scientists are storing data in plants; in Bangkok, Thailand, I explored how scientists are addressing neglected tropical diseases.
-        </p>
-
-        <p>
-          As a
-          <a href="https://pulitzercenter.org/projects/scorched-heat-sri-lankan-female-farmers-bear-climate-change" target="_blank">Pulitzer Center</a>
-          grantee, I produced a series of pioneering work on how climate change exacerbates gender-based violence for
-          <a href="https://www.context.news/climate-risks/domestic-violence-is-cost-of-climate-change-for-sri-lankan-women" target="_blank">Context News by Thomson Reuters Foundation</a>
-          &mdash; this won the
-          <a href="https://www.adb.org/adbi/news/adbi-awards-honor-works-of-journalism-urging-actions-for-accelerating-sustainable-transition" target="_blank">2024 Developing Asia Journalism Award</a>
-          from the Asian Development Bank Institute. I have analysed regional and global geopolitics, and investigated enforced disappearances and transitional justice in post-war Sri Lanka, the 2019 Easter Sunday attacks, and the Sri Lankan economic crisis of 2022 for media houses around the world including
-          <a href="https://foreignpolicy.com/2022/07/13/sri-lanka-food-economic-crisis-shortages-prices-inflation-women-children/" target="_blank">Foreign Policy</a>,
-          BBC, and
-          <a href="https://restofworld.org/2022/anonymous-sri-lankans-hacks-danger/" target="_blank">Rest of World</a>.
-        </p>
-
-        <p>
-          As a business advisor for an Australian government-led programme, I have strategized value chain interventions and, as a tech researcher, I have worked on developing AI tools for fact-checking. I hold a BSc (Hons) in Economics and Finance from the University of London.
-        </p>
+    <div class="work-sample">
+      <div class="piece">
+        <a href="https://pulitzercenter.org/stories/sri-lanka-climate-change-traps-women-farmers-exploitative-cycle-economic-violence" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="Images/women_farmer.jpg" loading="lazy" />
+          </div>
+          <p class="piece-publication">Pulitzer Center / South China Morning Post</p>
+          <p class="piece-title">In Sri Lanka, Climate Change Traps Women Farmers in 'Exploitative' Cycle of Economic Violence</p>
+          <p class="piece-desc">A Pulitzer-funded investigation into how drought and crop loss are deepening gender-based violence in rural Sri Lanka. Winner, 2024 Developing Asia Journalism Award.</p>
+          <span class="tool web-scraping">Reporting</span>
+          <span class="tool r">Data analysis</span>
+        </a>
       </div>
+
+      <div class="piece">
+        <a href="https://www.theguardian.com/environment/2023/sep/07/everything-is-destroyed-dynamite-use-sends-shockwaves-through-fishing-industries-sri-lanka" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="Images/artisanal_fisher.jpg" loading="lazy" />
+          </div>
+          <p class="piece-publication">The Guardian</p>
+          <p class="piece-title">'Everything is destroyed': dynamite use sends shockwaves through fishing industries</p>
+          <p class="piece-desc">Investigating illegal blast fishing along Sri Lanka's coastline &mdash; and the artisanal fishers losing their livelihoods to it.</p>
+          <span class="tool web-scraping">Investigation</span>
+        </a>
       </div>
     </div>
-  </section>
 
-<script>
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.portrait').forEach(el => observer.observe(el));
-</script>
-
-  <!-- REPORTING -->
-  <section id="reporting" class="work">
-    <h2>Reporting</h2>
-
-    <div class="grid">
-      <a class="card" href="https://pulitzercenter.org/stories/sri-lanka-climate-change-traps-women-farmers-exploitative-cycle-economic-violence" target="_blank">
-        <div class="card-img">
-          <span class="card-tag">Pulitzer Center</span>
-          <div class="card-overlay"><span>Read &rarr;</span></div>
-          <img src="Images/women_farmer.jpg" alt="Women farmers from Sri Lanka battle climate debt" loading="lazy">
-        </div>
-        <div class="card-body">
-          <h3>In Sri Lanka, Climate Change Traps Women Farmers in 'Exploitative' Cycle of Economic Violence</h3>
-          <p class="card-pub">Pulitzer Center / South China Morning Post</p>
-        </div>
-      </a>
-
-      <a class="card" href="https://www.theguardian.com/environment/2023/sep/07/everything-is-destroyed-dynamite-use-sends-shockwaves-through-fishing-industries-sri-lanka" target="_blank">
-        <div class="card-img">
-          <span class="card-tag">The Guardian</span>
-          <div class="card-overlay"><span>Read &rarr;</span></div>
-          <img src="Images/artisanal_fisher.jpg" alt="Artisanal fishers lose livelihoods" loading="lazy">
-        </div>
-        <div class="card-body">
-          <h3>'Everything is destroyed': dynamite use sends shockwaves through fishing industries</h3>
-          <p class="card-pub">The Guardian</p>
-        </div>
-      </a>
+    <!-- Data Visualization -->
+    <div>
+      <p class="category">Data Visualization</p>
+      <p class="category-desc">
+        Interactive stories, maps, and charts built with D3, ggplot, Flourish,
+        and QGIS. Each project includes original data gathering, analysis,
+        and design.
+      </p>
     </div>
-  </section>
 
-  <!-- DATA VIZ -->
-  <section id="viz" class="work">
-    <h2>Data Visualization</h2>
+    <div class="work-sample">
 
-    <div class="grid">
-      <a class="viz-card" href="NYC-thing-to-do/" target="_blank">
-        <div class="viz-card-bg" style="background: linear-gradient(135deg, #15151c 0%, #1f1f2b 50%, #262635 100%);">
-          <!-- Animated NYC skyline with twinkling windows + moon -->
-          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <!-- Moon -->
-            <circle cx="245" cy="40" r="11" fill="rgba(232,176,89,0.45)" />
-            <circle cx="242" cy="38" r="9" fill="#15151c" />
-            <!-- Skyline silhouette -->
-            <path d="M0,200 L0,140 L18,140 L18,110 L34,110 L34,135 L52,135 L52,90 L62,90 L62,70 L72,70 L72,90 L88,90 L88,125 L106,125 L106,108 L124,108 L124,150 L142,150 L142,118 L158,118 L158,100 L174,100 L174,80 L188,80 L188,120 L206,120 L206,138 L222,138 L222,108 L240,108 L240,60 L256,60 L256,40 L266,40 L266,60 L276,60 L276,95 L294,95 L294,130 L300,130 L300,200 Z" fill="rgba(232,176,89,0.15)" stroke="rgba(232,176,89,0.6)" stroke-width="1" />
-            <!-- Twinkling windows -->
-            <g class="sankey-flow s1" fill="rgba(232,176,89,0.9)">
-              <circle cx="22" cy="125" r="1.4" /><circle cx="28" cy="125" r="1.4" />
-              <circle cx="58" cy="118" r="1.4" /><circle cx="68" cy="80" r="1.4" />
-              <circle cx="98" cy="115" r="1.4" /><circle cx="118" cy="135" r="1.4" />
-            </g>
-            <g class="sankey-flow s2" fill="rgba(232,176,89,0.7)">
-              <circle cx="146" cy="138" r="1.4" /><circle cx="166" cy="110" r="1.4" />
-              <circle cx="194" cy="105" r="1.4" /><circle cx="212" cy="125" r="1.4" />
-            </g>
-            <g class="sankey-flow s3" fill="rgba(232,176,89,0.85)">
-              <circle cx="246" cy="85" r="1.4" /><circle cx="260" cy="55" r="1.4" />
-              <circle cx="280" cy="80" r="1.4" /><circle cx="290" cy="115" r="1.4" />
-            </g>
-            <!-- Tiny pigeon mascot -->
-            <g transform="translate(40,170)">
-              <ellipse cx="0" cy="0" rx="9" ry="5" fill="rgba(232,176,89,0.7)" />
-              <circle cx="8" cy="-4" r="3.5" fill="rgba(232,176,89,0.7)" />
-              <circle cx="9" cy="-5" r="0.7" fill="#15151c" />
-              <path d="M11,-3 L14,-4 L11.5,-2 Z" fill="rgba(217,119,87,0.9)" />
-            </g>
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Interactive Game</span>
-            <h3>What Should I Do in NYC <span style="color: rgb(232,176,89);">Today?</span></h3>
-            <p class="viz-desc">A choose-your-own city game. Tell it about your day, get a curated walking plan across 200+ venues.</p>
-            <span class="viz-cta">Play project &rarr;</span>
+      <div class="piece">
+        <a href="US-creditors/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="US-creditors/total_debt-medium.png" loading="lazy" />
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Scrollytelling</p>
+          <p class="piece-title">Who Owns America's Debt?</p>
+          <p class="piece-desc">A quarter-century look at who lends America its money &mdash; from China's retreat to the rise of tax havens.</p>
+          <span class="tool scrollytelling">Scrollytelling</span>
+          <span class="tool D3">D3</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="America-forest-cover/state-rankings.html" target="_blank">
-        <div class="viz-card-bg viz-gradient-forest">
-          <!-- Animated lollipop bars echoing the chart inside the page -->
-          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <line x1="150" y1="20" x2="150" y2="180" stroke="rgba(255,255,255,0.25)" stroke-width="1" />
-            <g class="forest-bars">
-              <line class="sankey-flow s1" x1="150" y1="32"  x2="240" y2="32"  stroke="rgba(255,255,255,0.85)" stroke-width="2" />
-              <circle cx="240" cy="32" r="3" fill="rgba(255,255,255,0.95)" />
-              <line class="sankey-flow s2" x1="150" y1="50"  x2="215" y2="50"  stroke="rgba(255,255,255,0.7)"  stroke-width="2" />
-              <circle cx="215" cy="50" r="3" fill="rgba(255,255,255,0.85)" />
-              <line class="sankey-flow s3" x1="150" y1="68"  x2="200" y2="68"  stroke="rgba(255,255,255,0.55)" stroke-width="2" />
-              <circle cx="200" cy="68" r="3" fill="rgba(255,255,255,0.75)" />
-              <line class="sankey-flow s1" x1="150" y1="86"  x2="180" y2="86"  stroke="rgba(255,255,255,0.4)"  stroke-width="2" />
-              <circle cx="180" cy="86" r="3" fill="rgba(255,255,255,0.6)" />
-              <line class="sankey-flow s2" x1="150" y1="104" x2="160" y2="104" stroke="rgba(255,255,255,0.35)" stroke-width="2" />
-              <circle cx="160" cy="104" r="3" fill="rgba(255,255,255,0.55)" />
-              <line class="sankey-flow s3" x1="150" y1="122" x2="115" y2="122" stroke="rgba(217,160,90,0.55)" stroke-width="2" />
-              <circle cx="115" cy="122" r="3" fill="rgba(217,160,90,0.85)" />
-              <line class="sankey-flow s1" x1="150" y1="140" x2="95"  y2="140" stroke="rgba(217,160,90,0.7)"  stroke-width="2" />
-              <circle cx="95"  cy="140" r="3" fill="rgba(217,160,90,0.95)" />
-              <line class="sankey-flow s2" x1="150" y1="158" x2="70"  y2="158" stroke="rgba(217,160,90,0.85)" stroke-width="2" />
-              <circle cx="70"  cy="158" r="3" fill="rgba(217,160,90,1)" />
-            </g>
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Interactive Chart</span>
-            <h3>The forests America lost, and found again</h3>
-            <p class="viz-desc">How every state's forest cover has grown or shrunk since 1945, ranked by census</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="AI-energy-usage/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="AI-energy-usage/ai-dirt-grid-full.png" loading="lazy" />
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Data Story</p>
+          <p class="piece-title">How the Countries Building AI Run on 'Dirty' Power</p>
+          <p class="piece-desc">While AI promises to reshape the future, its training uses up vast volumes of fossil fuels &mdash; posing challenges to planetary health.</p>
+          <span class="tool pandas">Pandas</span>
+          <span class="tool r">R statistics</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="https://public.flourish.studio/visualisation/26812347" target="_blank">
-        <div class="viz-card-bg viz-gradient-1">
-          <!-- Animated Sankey flows -->
-          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <path class="sankey-flow s1" d="M0,30 C80,30 100,80 150,80 C200,80 220,50 300,50" />
-            <path class="sankey-flow s2" d="M0,70 C60,70 100,110 150,100 C200,90 240,130 300,120" />
-            <path class="sankey-flow s3" d="M0,120 C70,120 110,60 160,55 C210,50 250,90 300,85" />
-            <path class="sankey-flow s4" d="M0,160 C90,160 120,140 170,135 C220,130 260,170 300,165" />
-            <path class="sankey-flow s5" d="M0,95 C50,95 90,150 150,155 C210,160 250,110 300,140" />
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Interactive Map</span>
-            <h3>Plastic Polymer Trade via Panama Canal</h3>
-            <p class="viz-desc">Tracking the flow of plastic polymers through one of the world's busiest waterways</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="cheese-divide/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="cheese-divide/Images/cheese.jpeg" loading="lazy" />
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Visualization</p>
+          <p class="piece-title">America's Cheese Divide: Walmart vs Whole Foods</p>
+          <p class="piece-desc">Why the same block of Cheddar costs 85% more at Whole Foods than at Walmart.</p>
+          <span class="tool web-scraping">Web scraping</span>
+          <span class="tool pandas">Pandas</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="cheese-divide/" target="_blank">
-        <div class="viz-card-bg viz-gradient-3">
-          <!-- Cute cartoon cheese -->
-          <svg class="viz-svg viz-svg-cheese" viewBox="0 0 300 200" aria-hidden="true">
-            <!-- Cheese wheel with missing slice (sad) -->
-            <g class="cheese-wheel">
-              <!-- Body with notch cut out -->
-              <path d="M 115,110 L 147,72 A 50,50 0 1,0 164,119 Z" fill="rgba(255,220,80,0.85)" stroke="rgba(210,160,30,0.9)" stroke-width="2" stroke-linejoin="round" />
-              <!-- Cheese holes -->
-              <circle cx="82" cy="105" r="8" fill="rgba(210,160,30,0.4)" />
-              <circle cx="105" cy="140" r="9" fill="rgba(210,160,30,0.4)" />
-              <circle cx="78" cy="132" r="5" fill="rgba(210,160,30,0.35)" />
-              <!-- Left eye -->
-              <ellipse cx="88" cy="102" rx="6" ry="7" fill="white" />
-              <circle cx="88" cy="104" r="3.5" fill="#2d3436" />
-              <circle cx="86.5" cy="102.5" r="1.5" fill="white" />
-              <!-- Right eye -->
-              <ellipse cx="110" cy="102" rx="6" ry="7" fill="white" />
-              <circle cx="110" cy="104" r="3.5" fill="#2d3436" />
-              <circle cx="108.5" cy="102.5" r="1.5" fill="white" />
-              <!-- Sad eyebrows -->
-              <path d="M81,95 Q85,92 92,95" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round" />
-              <path d="M106,95 Q112,92 117,95" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round" />
-              <!-- Rosy cheeks -->
-              <circle cx="78" cy="112" r="5" fill="rgba(255,120,120,0.4)" />
-              <circle cx="120" cy="112" r="5" fill="rgba(255,120,120,0.4)" />
-              <!-- Sad mouth -->
-              <path d="M91,120 Q99,114 108,120" stroke="#2d3436" stroke-width="1.8" fill="none" stroke-linecap="round" />
-              <!-- Teardrop -->
-              <path d="M114,108 Q116,114 114,118" stroke="rgba(100,180,255,0.7)" stroke-width="1.5" fill="rgba(100,180,255,0.4)" stroke-linecap="round" />
-            </g>
-            <!-- Wedge slice that swings away (happy!) -->
-            <g class="cheese-wedge">
-              <!-- Body - pie slice matching the notch -->
-              <path d="M 115,110 L 147,72 A 50,50 0 0,1 164,119 Z" fill="rgba(255,230,100,0.9)" stroke="rgba(210,160,30,0.9)" stroke-width="2" stroke-linejoin="round" />
-              <!-- Cheese hole -->
-              <circle cx="143" cy="100" r="4" fill="rgba(210,160,30,0.35)" />
-              <!-- Eye (big & sparkly) -->
-              <ellipse cx="146" cy="88" rx="4.5" ry="5.5" fill="white" />
-              <circle cx="146" cy="89.5" r="2.8" fill="#2d3436" />
-              <circle cx="144.5" cy="88" r="1.2" fill="white" />
-              <!-- Wink eye -->
-              <path d="M155,93 Q158,91 161,93" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round" />
-              <!-- Rosy cheek -->
-              <circle cx="139" cy="96" r="3.5" fill="rgba(255,120,120,0.4)" />
-              <!-- Happy smile -->
-              <path d="M142,98 Q150,104 158,99" stroke="#2d3436" stroke-width="1.5" fill="none" stroke-linecap="round" />
-              <!-- Tongue -->
-              <ellipse cx="150" cy="102" rx="3" ry="1.8" fill="rgba(255,120,120,0.6)" />
-            </g>
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Visualization</span>
-            <h3>America's cheese divide: Walmart vs Whole Foods</h3>
-            <p class="viz-desc">Why the same block of Cheddar costs 85% more at Whole Foods than at Walmart</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="sharks-bycatch/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <img src="sharks-bycatch/Images/pexels-valeriiamiller-5135160.jpg" loading="lazy" />
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Data Story</p>
+          <p class="piece-title">When Sharks Become Intentional Bycatch</p>
+          <p class="piece-desc">Commercially viable species living in the high seas are the least likely to be released back.</p>
+          <span class="tool r">R statistics</span>
+          <span class="tool illustrator">Illustrator</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="sharks-bycatch/" target="_blank">
-        <div class="viz-card-bg viz-gradient-4">
-          <!-- Animated shark fin -->
-          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <path class="sankey-flow s1" d="M0,140 C50,135 100,130 150,125 C200,120 250,115 300,110" />
-            <path class="sankey-flow s2" d="M0,160 C50,155 100,150 150,145 C200,140 250,135 300,130" />
-            <path class="sankey-flow s3" d="M0,180 C50,175 100,170 150,165 C200,160 250,155 300,150" />
-            <g class="shark-fin" opacity="0.7">
-              <path d="M140,100 L150,60 L165,100 Z" fill="rgba(255,255,255,0.5)" />
-              <animateTransform attributeName="transform" type="translate" values="-60,0;60,0;-60,0" dur="8s" repeatCount="indefinite" />
-            </g>
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Data Story</span>
-            <h3>When Sharks Become Intentional Bycatch</h3>
-            <p class="viz-desc">Commercially viable species living in the high seas are the least likely to be released back</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="America-forest-cover/state-rankings.html" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <div class="placeholder">The forests America lost, and found again</div>
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Interactive Chart</p>
+          <p class="piece-title">The Forests America Lost, and Found Again</p>
+          <p class="piece-desc">How every state's forest cover has grown or shrunk since 1945, ranked by census.</p>
+          <span class="tool D3">D3</span>
+          <span class="tool r">R statistics</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="https://dimuthuattanayake.github.io/Dengue/" target="_blank">
-        <div class="viz-card-bg viz-gradient-2">
-          <!-- Animated mosquito -->
-          <svg class="viz-svg viz-svg-mosquito" viewBox="0 0 300 200" aria-hidden="true">
-            <path id="mosquitoPath" d="M-30,160 C60,120 100,40 150,80 C200,120 220,30 300,60" fill="none" stroke="none" />
-            <g class="mosquito-group" transform="scale(0.7)">
-              <!-- Abdomen (tapered) -->
-              <ellipse cx="-12" cy="0" rx="12" ry="5" fill="rgba(255,255,255,0.85)" />
-              <!-- Thorax -->
-              <ellipse cx="2" cy="0" rx="8" ry="6" fill="rgba(255,255,255,0.9)" />
-              <!-- Head -->
-              <circle cx="12" cy="0" r="4.5" fill="rgba(255,255,255,0.9)" />
-              <!-- Proboscis -->
-              <line x1="16" y1="0" x2="30" y2="2" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
-              <!-- Antennae -->
-              <line x1="14" y1="-3" x2="20" y2="-8" stroke="rgba(255,255,255,0.7)" stroke-width="0.8" />
-              <line x1="15" y1="-2" x2="22" y2="-6" stroke="rgba(255,255,255,0.7)" stroke-width="0.8" />
-              <!-- Wings -->
-              <ellipse class="wing wing-top" cx="0" cy="-6" rx="16" ry="5" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="0.5" />
-              <ellipse class="wing wing-bottom" cx="0" cy="6" rx="16" ry="5" fill="rgba(255,255,255,0.25)" stroke="rgba(255,255,255,0.4)" stroke-width="0.5" />
-              <!-- Legs (3 pairs, striped black & white) -->
-              <path d="M-5,6 Q-10,16 -16,20" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" />
-              <path d="M-5,6 Q-10,16 -16,20" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" />
-              <path d="M0,6 Q-3,18 -6,22" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" />
-              <path d="M0,6 Q-3,18 -6,22" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" />
-              <path d="M5,6 Q6,17 4,22" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" />
-              <path d="M5,6 Q6,17 4,22" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" />
-              <path d="M-5,-6 Q-10,-16 -16,-20" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5" />
-              <path d="M-5,-6 Q-10,-16 -16,-20" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" opacity="0.5" />
-              <path d="M0,-6 Q-3,-18 -6,-22" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5" />
-              <path d="M0,-6 Q-3,-18 -6,-22" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" opacity="0.5" />
-              <path d="M5,-6 Q6,-17 4,-22" stroke="#1a1a1a" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5" />
-              <path d="M5,-6 Q6,-17 4,-22" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-dasharray="2 2" opacity="0.5" />
-              <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
-                <mpath href="#mosquitoPath" />
-              </animateMotion>
-            </g>
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Map</span>
-            <h3>Dengue Cases in Sri Lanka</h3>
-            <p class="viz-desc">An interactive exploration of dengue outbreaks across districts and seasons</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="NYC-thing-to-do/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <div class="placeholder">What Should I Do in NYC Today?</div>
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Interactive Game</p>
+          <p class="piece-title">What Should I Do in NYC Today?</p>
+          <p class="piece-desc">A choose-your-own city game. Tell it about your day, get a curated walking plan across 200+ venues.</p>
+          <span class="tool svelte">JavaScript</span>
+          <span class="tool web-scraping">Web scraping</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="Carbon-Emissions/" target="_blank">
-        <div class="viz-card-bg viz-gradient-1">
-          <div class="viz-card-content">
-            <span class="viz-tag">Data Story</span>
-            <h3>Global Carbon Emissions Are Growing</h3>
-            <p class="viz-desc">What's driving the projected 2% rise in global carbon emissions in 2017</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="https://public.flourish.studio/visualisation/26812347" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <div class="placeholder">Plastic Polymer Trade via Panama Canal</div>
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Interactive Map</p>
+          <p class="piece-title">Plastic Polymer Trade via Panama Canal</p>
+          <p class="piece-desc">Tracking the flow of plastic polymers through one of the world's busiest waterways.</p>
+          <span class="tool datawrapper">Flourish</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="AI-energy-usage/" target="_blank">
-        <div class="viz-card-bg viz-gradient-4">
-          <img src="Images/AI_energy.png" alt="AI energy usage" class="viz-thumb"
-               style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;opacity:0.4;">
-          <div class="viz-card-content">
-            <span class="viz-tag">Data Story</span>
-            <h3>How the Countries Building AI Run on 'Dirty' Power</h3>
-            <p class="viz-desc">While AI promises to reshape the future, their development use up large volumes of fossil fuels, posing challenges to planetary health</p>
-            <span class="viz-cta">View project &rarr;</span>
+      <div class="piece">
+        <a href="https://dimuthuattanayake.github.io/Dengue/" target="_blank">
+          <div class="thumb hvr-grow shadow">
+            <div class="placeholder">Dengue Cases in Sri Lanka</div>
           </div>
-        </div>
-      </a>
+          <p class="piece-publication">Map</p>
+          <p class="piece-title">Dengue Cases in Sri Lanka</p>
+          <p class="piece-desc">An interactive exploration of dengue outbreaks across districts and seasons.</p>
+          <span class="tool qgis">QGIS</span>
+          <span class="tool mapbox">Mapbox</span>
+        </a>
+      </div>
 
-      <a class="viz-card" href="US-creditors/" target="_blank">
-        <div class="viz-card-bg" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
-          <!-- Animated line chart lines -->
-          <svg class="viz-svg" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
-            <path class="sankey-flow s1" d="M0,170 C40,165 80,150 120,120 C160,90 200,60 240,40 C260,30 280,25 300,20" stroke="rgba(211,162,81,0.6)" />
-            <path class="sankey-flow s2" d="M0,160 C40,155 80,140 120,80 C140,50 160,45 180,50 C220,60 260,80 300,100" stroke="rgba(255,255,255,0.25)" />
-            <path class="sankey-flow s3" d="M0,140 C40,130 80,80 120,60 C160,50 200,55 240,60 C260,62 280,65 300,68" stroke="rgba(255,255,255,0.2)" />
-          </svg>
-          <div class="viz-card-content">
-            <span class="viz-tag">Scrollytelling</span>
-            <h3>Who Owns America's <span style="color: rgb(211,162,81);">Debt?</span></h3>
-            <p class="viz-desc">A quarter-century look at who lends America its money, from China's retreat to the rise of tax havens</p>
-            <span class="viz-cta">View project &rarr;</span>
-          </div>
-        </div>
-      </a>
     </div>
-  </section>
 
+    <!-- Footer -->
+    <div>
+      <p style="
+          font-family: 'Baskerville';
+          font-size: 15px;
+          color: rgb(76, 76, 76);
+          text-align: center;
+          margin-top: 4%;
+          margin-bottom: 4%;
+        ">
+        &copy; 2026 &mdash; Dimuthu Attanayake
+      </p>
+    </div>
 
-
-</main>
-
-<footer>
-  <div class="footer-socials">
-    <a href="https://twitter.com/dimuthudca" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-    <a href="https://github.com/DimuthuAttanayake" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-    <a href="https://www.linkedin.com/in/dimuthuattanayake" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    <a href="mailto:dimuthuc.attanayake@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-  </div>
-  <p class="footer-tagline">Made in New York</p>
-  <p class="footer-copy">&copy; 2026 Dimuthu Attanayake</p>
-</footer>
-
-</body>
+  </body>
 </html>
