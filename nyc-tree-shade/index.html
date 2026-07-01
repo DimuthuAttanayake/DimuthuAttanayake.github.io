@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NYC 2025 Mayoral Primary — Interactive Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Mapbox GL JS: the library that draws the map -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.0/mapbox-gl.js"></script>
+
+  <!-- Geocoder plugin: powers the address search box -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.css" type="text/css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.3/mapbox-gl-geocoder.min.js"></script>
+
+  <style>
+    html, body { margin: 0; height: 100%; font-family: system-ui, sans-serif; }
+    #map { position: absolute; inset: 0; }   /* the map fills the window */
+  
+  /* Add to your <style> block */
+#legend {
+    position: absolute; z-index: 3; top: 12px; left: 12px;
+    background: #fff; padding: 26px 28px;
+    border: 1px solid #d7dbe0; border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(20,30,60,0.18);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px; color: #2b3446; line-height: 1.5;
+    width: 340px; max-width: calc(100vw - 24px);
+    box-sizing: border-box;
+  }
+  /* On larger screens, float it middle-left (roughly over the "New York" label). */
+  @media (min-width: 900px) {
+    #legend { top: 50%; left: 32px; transform: translateY(-50%); }
+  }
+  /* On phones: a short horizontal bar across the top so it doesn't cover the map. */
+  @media (max-width: 899px) {
+    #legend {
+      top: 0; left: 0; right: 0; width: auto; max-width: none;
+      border-radius: 0 0 12px 12px; padding: 10px 14px;
+      font-size: 12px; line-height: 1.3;
+    }
+    #legend h4 { font-size: 15px; margin: 0 0 8px; line-height: 1.15; }
+    #legend .units { font-size: 10px; margin: 0 0 6px; }
+    /* Lay the color swatches out in a wrapping horizontal row. */
+    #legend .scale { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+    #legend .row { margin: 0; font-size: 12px; gap: 6px; }
+    #legend .swatch { width: 16px; height: 16px; flex-basis: 16px; }
+    #geocoder-container { margin: 2px 0 10px; }
+    #geocoder-container .mapboxgl-ctrl-geocoder--input { height: 36px; font-size: 13px; }
+    /* Hide the footnote on mobile to keep the bar short. */
+    #legend .divider, #legend .foot { display: none; }
+  }
+  /* Big editorial serif headline */
+  #legend h4 {
+    margin: 0 0 12px; color: #1a2440;
+    font-family: Georgia, "Times New Roman", "Iowan Old Style", serif;
+    font-size: 26px; font-weight: 700; line-height: 1.1;
+    letter-spacing: 0.2px;
+  }
+  /* Section subhead ("Shade density") */
+  #legend .subhead {
+    margin: 0 0 10px; color: #1a2440;
+    font-size: 17px; font-weight: 700;
+  }
+  #legend .units {
+    margin: 0 0 12px; font-size: 12px; font-weight: 600;
+    color: #8a92a6; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  #legend .row {
+    display: flex; align-items: center; gap: 12px; margin: 8px 0;
+    font-size: 17px; color: #2b3446;
+  }
+  #legend .swatch {
+    width: 26px; height: 26px; flex: 0 0 26px;
+    border-radius: 4px; border: 1px solid #000000;
+  }
+  /* Divider + footnote */
+  #legend .divider { height: 1px; background: #e4e7ec; margin: 18px 0 14px; }
+  #legend .foot { margin: 0; font-size: 13px; line-height: 1.4; color: #8a92a6; }
+  /* Search box inside the panel */
+  #geocoder-container { margin: 4px 0 18px; }
+  #geocoder-container .mapboxgl-ctrl-geocoder {
+    width: 100%; max-width: none; box-shadow: none;
+    border: 1px solid #c9cdd6; border-radius: 8px; font-size: 15px;
+  }
+  #geocoder-container .mapboxgl-ctrl-geocoder--input { height: 44px; padding: 6px 36px; color: #2b3446; }
+
+  /* Add to your <style> block */
+#tooltip {
+  position: absolute; z-index: 3;
+  pointer-events: none;            /* let the mouse "pass through" to the map */
+  display: none;                   /* hidden until we hover a district */
+  background: #fff; padding: 8px 10px;
+  border: 1px solid #0000ff; border-radius: 2px;
+  font-size: 13px; line-height: 1.35; max-width: 220px; color: #0000ff;
+}
+#tooltip .name { font-weight: 900; }
+#tooltip .sub  { color: #3a3aaa; }
+
+/* Add to your <style> block */
+#drawer {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 4;
+  background: #fff; color: #0000ff;
+  padding: 16px 18px calc(16px + env(safe-area-inset-bottom));
+  border-top: 1px solid #0000ff;
+  transform: translateY(110%);     /* parked off-screen */
+  transition: transform .25s ease;
+}
+#drawer.open { transform: translateY(0); }   /* slides up when open */
+#drawer .name { font-weight: 900; font-size: 16px; }
+#drawer .sub  { color: #3a3aaa; margin-top: 4px; }
+#drawer .close {
+  position: absolute; top: 8px; right: 12px;
+  border: none; background: none; font-size: 22px; cursor: pointer; color: #0000ff;
+}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <!-- Add inside <body>, after <div id="map"></div> -->
+  <div id="legend">
+    <h4>Which NYC neighbourhoods have shady streets during the summer?</h4>
+
+    <!-- The address search box mounts here (see the script) -->
+    <div id="geocoder-container"></div>
+
+    <div class="units">Shade trees per km²</div>
+    <div class="scale">
+      <div class="row"><span class="swatch"
+    style="background:#e6f5df"></span> 0 – 150 (least shaded)</div>
+      <div class="row"><span class="swatch"
+    style="background:#9fd98c"></span> 150 – 300</div>
+      <div class="row"><span class="swatch"
+    style="background:#4db86a"></span> 300 – 450</div>
+      <div class="row"><span class="swatch"
+    style="background:#1a9850"></span> 450 – 600</div>
+      <div class="row"><span class="swatch"
+    style="background:#006837"></span> 600+ (most shaded)</div>
+      <div class="row"><span class="swatch"
+    style="background:#cfcfcf"></span> No data / parkland</div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="foot">Grey areas are parks or water with no street-tree count.
+      Hover a district to see its shade density and tree total.</p>
+  </div>
+
+  <!-- Add inside <body> -->
+  <div id="tooltip"></div>
+
+  <script>
+    // All of our JavaScript will go here, step by step.
+    // Your personal access token (Step 0). Keep the quotes.
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGltdXRodWF0dCIsImEiOiJjbXF0bW94dXcwZ2NlMndteHJrbDk4MjJoIn0.Fhy_JMePnFmQjlBAFR_ZVQ';
+
+// On phones, start a bit more zoomed-in and shifted so the city sits below
+// the top legend bar (instead of hidden behind it).
+const isMobile = window.matchMedia('(max-width: 899px)').matches;
+
+const map = new mapboxgl.Map({
+  container: 'map',                          // matches <div id="map">
+  style: 'mapbox://styles/mapbox/light-v11', // a clean, light basemap
+  center: isMobile ? [-73.95, 40.71] : [-73.98, 40.70], // [longitude, latitude]
+  zoom: isMobile ? 10.2 : 9.8,
+  // Reserve space at the top on mobile so centering ignores the legend bar.
+  padding: isMobile ? { top: 240, bottom: 0, left: 0, right: 0 } : undefined
+});
+
+// Zoom-in / zoom-out / compass buttons
+map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  
+// Candidate -> color. (ColorBrewer "Dark2": colorblind-friendly.)
+const TREE_COLORS = [
+   1, '#e6f5df',
+   2, '#9fd98c',
+   3, '#4db86a',
+   4, '#1a9850',
+   5, '#006837'
+];
+
+// Wait until the basemap is ready, THEN add our data on top.
+// Add right AFTER your NavigationControl line (outside map.on('load')).
+const geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  mapboxgl: mapboxgl,
+  marker: true,
+  placeholder: 'Search for your zip code',
+  // Keep results within NYC: [west, south, east, north]
+  bbox: [-74.2591, 40.4774, -73.7002, 40.9162],
+  proximity: { longitude: -73.98, latitude: 40.70 }
+});
+// Mount the search box inside the legend panel (instead of a map corner).
+geocoder.addTo('#geocoder-container');
+
+// Because the geocoder lives in the panel (not added as a map control), we
+// wire its results to the map ourselves: fly to the spot and drop a marker.
+const searchMarker = new mapboxgl.Marker({ color: '#1a2440' });
+geocoder.on('result', (e) => {
+  const center = e.result.center;            // [lng, lat]
+  map.flyTo({ center, zoom: 14 });
+  searchMarker.setLngLat(center).addTo(map);
+});
+geocoder.on('clear', () => searchMarker.remove());
+map.on('load', () => {
+  // Load the GeoJSON file as a data "source".
+  // promoteId tells Mapbox to use each district's ElectDist value as its id,
+  // which we will need for hover highlighting later.
+  map.addSource('trees', {
+    type: 'geojson',
+    data: 'shade_density_by_zip.geojson',
+    promoteId: 'modzcta'
+  });
+
+  // Find the first text/symbol layer in the basemap so we can insert our
+  // layers UNDERNEATH it. That keeps place labels (like "New York") on top.
+  const firstSymbolId = map.getStyle().layers.find(l => l.type === 'symbol')?.id;
+
+  // Make city AND neighbourhood labels ink black with a thin white halo so
+  // they stay legible against the green fills.
+  ['settlement-major-label', 'settlement-minor-label', 'settlement-subdivision-label'].forEach(id => {
+    if (!map.getLayer(id)) return;
+    map.setPaintProperty(id, 'text-color', '#000000');
+    map.setPaintProperty(id, 'text-halo-color', '#ffffff');
+    map.setPaintProperty(id, 'text-halo-width', 1.4);
+  });
+
+  // The colored fill: one shade per shade-density group.
+  map.addLayer({
+    id: 'trees-fill',
+    type: 'fill',
+    source: 'trees',
+    paint: {
+      'fill-color': [
+        'case',
+        // Parks / water / other non-residential zones have no street-tree
+        // count — show them as neutral grey ("No data") instead of "low".
+        ['==', ['get', 'tree_count'], 0], '#cfcfcf',
+        [
+          'match', ['get', 'density_group'],   // look at each ZIP's density group
+          ...TREE_COLORS,          // ...and pick its color
+          '#999999'                     // fallback for anything unexpected
+        ]
+      ],
+      'fill-opacity': [
+      'case', ['boolean', ['feature-state', 'hover'], false],
+       0.95,   // when hovered
+       0.7     // normally
+      ]
+    }
+  }, firstSymbolId);
+
+  // Thin white borders between every district (always visible).
+  map.addLayer({
+    id: 'trees-line',
+    type: 'line',
+    source: 'trees',
+    paint: { 'line-color': '#111111', 'line-width': 0.4 }
+  }, firstSymbolId);
+
+  // A dark outline that appears ONLY on the hovered district.
+  map.addLayer({
+    id: 'trees-hover',
+    type: 'line',
+    source: 'trees',
+    paint: {
+      'line-color': '#111111',
+      'line-width': ['case', ['boolean', ['feature-state', 'hover'], false], 2, 0]
+    }
+  }, firstSymbolId);
+// Add INSIDE map.on('load'), after the layers.
+const tooltip = document.getElementById('tooltip');
+let hoveredId = null;
+
+// Build the text shown for one ZIP area.
+function describe(props) {
+  return {
+    name: `ZIP ${props.label || props.modzcta}`,
+    sub:  `Shade density: <b>${Math.round(props.density).toLocaleString()}</b> trees/km²`
+        + `<br>Total trees: ${Number(props.tree_count).toLocaleString()}`
+        + `<br>Area: ${props.area_km2} km²`
+  };
+}
+
+// Only devices with a real mouse get hover behavior (desktops/laptops).
+const canHover = window.matchMedia('(hover: hover)').matches;
+
+if (canHover) {
+  map.on('mousemove', 'trees-fill', (e) => {
+    map.getCanvas().style.cursor = 'pointer';
+    const f = e.features[0];
+
+    // Move the "hover" highlight from the old district to the new one.
+    if (hoveredId !== null) {
+      map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: false });
+    }
+    hoveredId = f.id;
+    map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: true });
+
+    const info = describe(f.properties);
+    tooltip.innerHTML = `<div class="name">${info.name}</div><div class="sub">${info.sub}</div>`;
+    tooltip.style.display = 'block';
+    tooltip.style.left = (e.point.x + 14) + 'px';
+    tooltip.style.top  = (e.point.y + 14) + 'px';
+  });
+
+  map.on('mouseleave', 'trees-fill', () => {
+    map.getCanvas().style.cursor = '';
+    if (hoveredId !== null) {
+      map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: false });
+    }
+    hoveredId = null;
+    tooltip.style.display = 'none';
+  });
+}
+// Add this right after the closing brace of the `if (canHover) { ... }`
+// block from Step 5, so the whole thing reads `if (canHover) { ... } else { ... }`.
+else {
+  // Mobile / touch: tap a district to open the bottom drawer.
+  const drawer = document.getElementById('drawer');
+
+  map.on('click', 'trees-fill', (e) => {
+    const f = e.features[0];
+
+    if (hoveredId !== null) {
+      map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: false });
+    }
+    hoveredId = f.id;
+    map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: true });
+
+    const info = describe(f.properties);
+    drawer.querySelector('.name').textContent = info.name;
+    drawer.querySelector('.sub').innerHTML = info.sub;
+    drawer.classList.add('open');
+  });
+
+  drawer.querySelector('.close').addEventListener('click', () => {
+    drawer.classList.remove('open');
+    if (hoveredId !== null) {
+      map.setFeatureState({ source: 'trees', id: hoveredId }, { hover: false });
+      hoveredId = null;
+    }
+  });
+}
+});
+
+  </script>
+
+<!-- Add inside <body> -->
+<div id="drawer">
+  <button class="close" aria-label="Close">×</button>
+  <div class="name"></div>
+  <div class="sub"></div>
+</div>  
+
+</body>
+</html>

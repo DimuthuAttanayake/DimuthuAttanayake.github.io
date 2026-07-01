@@ -111,9 +111,22 @@
     <div class="work-sample">
 
       <div class="piece">
+        <a href="nyc-tree-shade/" target="_blank">
+          <div class="thumb hvr-grow shadow" style="background-color:#ececec;">
+            <img class="contain" src="nyc-tree-shade/Images/tree-shade-thumb.png" loading="lazy" />
+          </div>
+          <p class="piece-publication">Interactive Map</p>
+          <p class="piece-title">Which NYC Neighbourhoods Have Shady Streets?</p>
+          <p class="piece-desc">A block-by-block map of street-tree shade across every NYC ZIP code &mdash; search your address to see how your neighbourhood compares in summer.</p>
+          <span class="tool mapbox">Mapbox</span>
+          <span class="tool pandas">Pandas</span>
+        </a>
+      </div>
+
+      <div class="piece">
         <a href="US-creditors/" target="_blank">
           <div class="thumb hvr-grow shadow">
-            <img src="US-creditors/total_debt-medium.png" loading="lazy" />
+            <video src="US-creditors/us-creditors-demo.mp4" poster="US-creditors/us-creditors-poster.jpg" autoplay loop muted playsinline preload="auto"></video>
           </div>
           <p class="piece-publication">Scrollytelling</p>
           <p class="piece-title">Who Owns America's Debt?</p>
@@ -125,8 +138,8 @@
 
       <div class="piece">
         <a href="AI-energy-usage/" target="_blank">
-          <div class="thumb hvr-grow shadow">
-            <img src="AI-energy-usage/ai-dirt-grid-full.png" loading="lazy" />
+          <div class="thumb hvr-grow shadow" style="background-color: #ffffff;">
+            <img class="contain" src="AI-energy-usage/Images/ai-energy-thumb.png" loading="lazy" />
           </div>
           <p class="piece-publication">Data Story</p>
           <p class="piece-title">How the Countries Building AI Run on 'Dirty' Power</p>
@@ -139,7 +152,7 @@
       <div class="piece">
         <a href="cheese-divide/" target="_blank">
           <div class="thumb hvr-grow shadow">
-            <img src="cheese-divide/Images/cheese.jpeg" loading="lazy" />
+            <img src="cheese-divide/Images/cheese-thumb.png" loading="lazy" />
           </div>
           <p class="piece-publication">Visualization</p>
           <p class="piece-title">America's Cheese Divide: Walmart vs Whole Foods</p>
@@ -164,8 +177,8 @@
 
       <div class="piece">
         <a href="America-forest-cover/state-rankings.html" target="_blank">
-          <div class="thumb hvr-grow shadow">
-            <div class="placeholder">The forests America lost, and found again</div>
+          <div class="thumb hvr-grow shadow" style="background-color: #f7f4ed;">
+            <video class="contain" src="America-forest-cover/forest-cover-demo.mp4" poster="America-forest-cover/forest-cover-poster.jpg" autoplay loop muted playsinline preload="auto"></video>
           </div>
           <p class="piece-publication">Interactive Chart</p>
           <p class="piece-title">The Forests America Lost, and Found Again</p>
@@ -178,7 +191,7 @@
       <div class="piece">
         <a href="NYC-thing-to-do/" target="_blank">
           <div class="thumb hvr-grow shadow">
-            <div class="placeholder">What Should I Do in NYC Today?</div>
+            <video class="contain" src="NYC-thing-to-do/nyc-demo.mp4" poster="NYC-thing-to-do/nyc-poster.jpg" autoplay loop muted playsinline preload="auto"></video>
           </div>
           <p class="piece-publication">Interactive Game</p>
           <p class="piece-title">What Should I Do in NYC Today?</p>
@@ -191,7 +204,7 @@
       <div class="piece">
         <a href="https://public.flourish.studio/visualisation/26812347" target="_blank">
           <div class="thumb hvr-grow shadow">
-            <div class="placeholder">Plastic Polymer Trade via Panama Canal</div>
+            <img src="Images/panama-thumb.png" loading="lazy" />
           </div>
           <p class="piece-publication">Interactive Map</p>
           <p class="piece-title">Plastic Polymer Trade via Panama Canal</p>
@@ -202,8 +215,8 @@
 
       <div class="piece">
         <a href="https://dimuthuattanayake.github.io/Dengue/" target="_blank">
-          <div class="thumb hvr-grow shadow">
-            <div class="placeholder">Dengue Cases in Sri Lanka</div>
+          <div class="thumb hvr-grow shadow" style="background-color: #f1f8fe;">
+            <img class="contain" src="Images/dengue-thumb.png" loading="lazy" />
           </div>
           <p class="piece-publication">Map</p>
           <p class="piece-title">Dengue Cases in Sri Lanka</p>
@@ -228,6 +241,15 @@
         &copy; 2026 &mdash; Dimuthu Attanayake
       </p>
     </div>
+
+    <!-- Ensure thumbnail videos autoplay (some browsers ignore the muted attribute alone) -->
+    <script>
+      document.querySelectorAll('.thumb video').forEach(function (video) {
+        video.muted = true;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      });
+    </script>
 
   </body>
 </html>

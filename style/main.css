@@ -156,6 +156,12 @@ a:hover {
   display: block;
 }
 
+/* Show the whole frame (letterboxed) instead of cropping — for portrait clips/images */
+.thumb video.contain,
+.thumb img.contain {
+  object-fit: contain;
+}
+
 .piece-publication {
   font-family: 'Noto Sans', sans-serif;
   letter-spacing: 0.7px;
