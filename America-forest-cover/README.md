@@ -28,7 +28,6 @@ The `mlu.js` file is a pre-processed slice of the ERS state-year-wide CSV. Six c
 
 - [D3.js v7](https://d3js.org/) for the lollipop chart, transitions, force layout and SVG export.
 - Plain HTML, CSS and vanilla JavaScript. No build step.
-- Built with the assistance of Anthropic's Claude.
 
 ## License
 
