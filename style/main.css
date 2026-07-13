@@ -20,6 +20,7 @@ body {
   width: 100%;
   height: auto;
   object-fit: cover;
+  object-position: top;
   aspect-ratio: 1 / 1;
 }
 
@@ -32,7 +33,7 @@ body {
 /* ── Intro ── */
 #intro {
   font-family: "Baskerville", "Lora", Georgia, serif;
-  font-size: 24px;
+  font-size: 20px;
   font-style: normal;
   color: rgb(32, 32, 32);
   font-variant: normal;
@@ -269,7 +270,7 @@ a:hover {
 /* ── Mobile ── */
 @media (max-width: 576px) {
   #intro {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   #photo {
