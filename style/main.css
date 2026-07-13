@@ -32,7 +32,7 @@ body {
 
 /* ── Intro ── */
 #intro {
-  font-family: "Baskerville", "Lora", Georgia, serif;
+  font-family: 'Noto Sans', sans-serif;
   font-size: 20px;
   font-style: normal;
   color: rgb(32, 32, 32);
