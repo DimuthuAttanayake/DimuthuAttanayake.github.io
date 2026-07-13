@@ -74,13 +74,13 @@ body {
 
 /* ── Links ── */
 a {
-  color: #0000EE;
+  color: #9d006f;
 }
 a:visited {
-  color: #551A8B;
+  color: #9d006f;
 }
 a:hover {
-  color: #0000CD;
+  color: #6d004d;
 }
 
 /* ── Section headers ── */
